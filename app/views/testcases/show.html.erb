@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= t("testcase.title") %>:</b><br />
+  <%= @testcase.title %>
+</p>
+
+<p>
+  <b><%= t("testcase.created_at") %>:</b><br />
+  <%= @testcase.created_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.created_at.wday]})" unless @testcase.created_at.blank? %>
+</p>
+
+<p>
+  <b><%= t("testcase.page") %>:</b><br />
+  <%= @testcase.page %>
+</p>
+
+<p>
+  <b><%= t("testcase.operation") %>:</b><br />
+  <%= @testcase.operation %>
+</p>
+
+<p>
+  <b><%= t("testcase.result") %>:</b><br />
+  <%= @testcase.result %>
+</p>
+
+<p>
+  <b><%= t("testcase.status") %>:</b><br />
+  <%= @testcase.status %>
+</p>
+
+<p>
+  <b><%= t("testcase.operation_at") %>:</b><br />
+  <%= @testcase.operation_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.operation_at.wday]})" unless @testcase.operation_at.blank? %>
+</p>
+
+<p>
+  <b><%= t("testcase.check_at") %>:</b><br />
+  <%= @testcase.check_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.check_at.wday]})" unless @testcase.check_at.blank? %>
+</p>
+
+<p>
+  <b><%= t("testcase.ticket_no") %>:</b><br />
+  <%= link_to @testcase.ticket_no, "http://redmine.pixta.jp/issues/#{@testcase.ticket_no}", target: "_blank" unless @testcase.ticket_no.blank? %>
+</p>
+
+<p>
+  <b><%= t("testcase.spec_flag") %>:</b><br />
+  <%= @testcase.spec_flag %>
+</p>
+
+<p>
+  <b><%= t("testcase.create_user") %>:</b><br />
+  <%= @testcase.user.try(:name) %>
+</p>
+
+<p>
+  <b><%= t("testcase.operation_user") %>:</b><br />
+  <%= User.get_name( @testcase.operation_user_id ) %>
+</p>
+
+<p>
+  <b><%= t("testcase.check_user") %>:</b><br />
+  <%= User.get_name( @testcase.check_user_id ) %>
+</p>
+
+<p>
+  <b><%= t("testcase.note") %>:</b><br />
+  <%= @testcase.note %>
+</p>
+
+<%= link_to t("edit"), { action: 'edit', id: @testcase.id } %>
+　<%= link_to t("list"), :action => 'index' %><br />
+<br />

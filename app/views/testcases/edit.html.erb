@@ -1,0 +1,68 @@
+
+<h1><%= t("testcase.edit") %></h1>
+
+<%#= render 'form' %>
+
+<%= form_for( :testcase, url: { action: 'update', id: @testcase.id } ) do |f| %>
+  <% if @testcase.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@testcase.errors.count, "error") %> prohibited this testcase from being saved:</h2>
+
+      <ul>
+      <% @testcase.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title, t("testcase.title") %><br />
+    <%= f.text_field :title, size: 50 %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :page, t("testcase.page") %><br />
+    <%= f.text_field :page, size: 50 %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :operation, t("testcase.operation") %><br />
+    <%= f.text_area :operation, rows: 10 %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :result, t("testcase.result") %><br />
+    <%= f.text_area :result, rows: 10 %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :note, t("testcase.note") %><br />
+    <%= f.text_area :note, rows: 10 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :status, t("testcase.status") %><br />
+    <%= f.text_field :status %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ticket_no, t("testcase.ticket_no") %><br />
+    <%= f.text_field :ticket_no %>
+  </div>
+
+  <div class="field">
+    <%= f.label :spec_flag, t("testcase.spec_flag") %><br />
+    <%= f.text_field :spec_flag %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit t("update") %>
+  </div>
+<% end %>
+
+<br />
+
+<%= link_to t("show"), { actin: "show", id: @testcase.id } %>
+　<%= link_to t("list"), :action => 'index' %><br />
+<br />

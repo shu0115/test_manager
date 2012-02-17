@@ -1,0 +1,70 @@
+<h1><%= t("testcase.list") %></h1>
+
+<%# 通知／エラーメッセージ %>
+<% if !flash[:notice].blank? %>
+  <p style="color: green;"><%=raw flash[:notice] %></p>
+<% elsif !flash[:alert].blank? %>
+  <p style="color: red;"><%=raw flash[:alert] %></p>
+<% end %>
+
+<table>
+  <tr>
+    <th><%= t("testcase.title") %></th>
+    <th><%= t("testcase.created_at") %></th>
+    <th><%= t("testcase.page") %></th>
+    <th><%= t("testcase.operation") %></th>
+    <th><%= t("testcase.result") %></th>
+    <th><%= t("testcase.status") %></th>
+    <th><%= t("testcase.operation_at") %></th>
+    <th><%= t("testcase.check_at") %></th>
+    <th><%= t("testcase.ticket_no") %></th>
+    <th><%= t("testcase.spec_flag") %></th>
+    <th><%= t("testcase.create_user") %></th>
+    <th><%= t("testcase.operation_user") %></th>
+    <th><%= t("testcase.check_user") %></th>
+    <th><%= t("testcase.note") %></th>
+    <% if @testcases.length > 0 %>
+    <th></th>
+    <th></th>
+    <th></th>
+    <% end %>
+  </tr>
+
+<% @testcases.each do |testcase| %>
+  <tr>
+    <td><%= testcase.title %></td>
+    <td><%= testcase.created_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.created_at.wday]})" unless testcase.created_at.blank? %></td>
+    <td><%= testcase.page %></td>
+    <td><%= testcase.operation %></td>
+    <td><%= testcase.result %></td>
+    <td><%= testcase.status %></td>
+    <td>
+      <% unless testcase.operation_at.blank? %>
+        <%= testcase.operation_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.operation_at.wday]})" %>
+      <% else %>
+        <center><%= link_to t("done"), { action: 'update', id: testcase.id, testcase: { operation_user_id: session[:user_id], operation_at: Time.now } }, confirm: "「#{testcase.title}」を実施します。よろしいですか？" %></center>
+      <% end %>
+    </td>
+    <td>
+      <% unless testcase.check_at.blank? %>
+        <%= testcase.check_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.check_at.wday]})" %>
+      <% else %>
+        <center><%= link_to t("check"), { action: 'update', id: testcase.id, testcase: { check_user_id: session[:user_id], check_at: Time.now } }, confirm: "「#{testcase.title}」を対応します。よろしいですか？" %></center>
+      <% end %>
+    </td>
+    <td><%= link_to testcase.ticket_no, "http://redmine.pixta.jp/issues/#{testcase.ticket_no}", target: "_blank" unless testcase.ticket_no.blank? %></td>
+    <td><%= testcase.spec_flag %></td>
+    <td><%= testcase.user.try(:name) %></td>
+    <td><%= User.get_name( testcase.operation_user_id ) %></td>
+    <td><%= User.get_name( testcase.check_user_id ) %></td>
+    <td><%= testcase.note %></td>
+    <td><%= link_to t("show"), { action: 'show', id: testcase.id } %></td>
+    <td><%= link_to t("edit"), { action: 'edit', id: testcase.id } %></td>
+    <td><%= link_to t("delete"), { action: 'delete', id: testcase.id }, confirm: "「#{testcase.title}」を削除します。よろしいですか？" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to t("testcase.new"), action: 'new' %>

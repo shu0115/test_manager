@@ -1,0 +1,38 @@
+ja:
+  list: 一覧
+  create: 作成
+  show: 詳細
+  edit: 編集
+  update: 更新
+  delete: 削除
+  done: 実施
+  check: 対応
+  
+  user:
+    new: 新規登録
+    entry: 登録
+    login: ログイン
+    name: 名前
+    login_id: ログインID(メールアドレス)
+    password: パスワード
+    password_confirmation: パスワード確認
+  
+  testcase:
+    new: 新規作成
+    edit: 編集
+    list: テスト項目一覧
+    title: テスト項目
+    page: ページURL
+    operation: 操作
+    result: 結果
+    status: ステータス
+    note: 備考
+    create_user: 作成者
+    operation_user: 実施者
+    check_user: 対応者
+    operation_at: 実施日
+    check_at: 対応日
+    created_at: 日付
+    operation_check: 実施チェック
+    ticket_no: チケット番号
+    spec_flag: specフラグ

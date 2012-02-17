@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  title: MyString
+  page: MyText
+  operation: MyText
+  result: MyText
+  status: MyString
+  create_user_id: 1
+  operation_user_id: 1
+  check_user_id: 1
+
+two:
+  user_id: 1
+  title: MyString
+  page: MyText
+  operation: MyText
+  result: MyText
+  status: MyString
+  create_user_id: 1
+  operation_user_id: 1
+  check_user_id: 1

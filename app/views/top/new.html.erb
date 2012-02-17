@@ -1,0 +1,36 @@
+
+<h1>新規登録</h1>
+
+<%# 通知／エラーメッセージ %>
+<% if !flash[:notice].blank? %>
+  <p style="color: green;"><%=raw flash[:notice] %></p>
+<% elsif !flash[:alert].blank? %>
+  <p style="color: red;"><%=raw flash[:alert] %></p>
+<% end %>
+
+<%= form_for( :user, :url => { :action => "entry" } ) do |f| %>
+  <div class="field">
+    <%= f.label :name, t("user.name") %><br />
+    <%= f.text_field :last_name, size: 15 %>
+    <%= f.text_field :first_name, size: 15 %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :login_id, t("user.login_id") %><br />
+    <%= f.text_field :login_id %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :password, t("user.password") %><br />
+    <%= f.password_field :password %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :password_confirmation, t("user.password_confirmation") %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit t("user.entry") %>
+  </div>
+<% end %>
