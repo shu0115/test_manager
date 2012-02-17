@@ -31,16 +31,6 @@
 </p>
 
 <p>
-  <b><%= t("testcase.operation_at") %>:</b><br />
-  <%= @testcase.operation_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.operation_at.wday]})" unless @testcase.operation_at.blank? %>
-</p>
-
-<p>
-  <b><%= t("testcase.check_at") %>:</b><br />
-  <%= @testcase.check_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.check_at.wday]})" unless @testcase.check_at.blank? %>
-</p>
-
-<p>
   <b><%= t("testcase.ticket_no") %>:</b><br />
   <%= link_to @testcase.ticket_no, "http://redmine.pixta.jp/issues/#{@testcase.ticket_no}", target: "_blank" unless @testcase.ticket_no.blank? %>
 </p>
@@ -48,6 +38,16 @@
 <p>
   <b><%= t("testcase.spec_flag") %>:</b><br />
   <%= @testcase.spec_flag %>
+</p>
+
+<p>
+  <b><%= t("testcase.operation_at") %>:</b><br />
+  <%= @testcase.operation_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.operation_at.wday]})" unless @testcase.operation_at.blank? %>
+</p>
+
+<p>
+  <b><%= t("testcase.check_at") %>:</b><br />
+  <%= @testcase.check_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.check_at.wday]})" unless @testcase.check_at.blank? %>
 </p>
 
 <p>

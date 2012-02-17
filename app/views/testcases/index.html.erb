@@ -15,10 +15,10 @@
     <th><%= t("testcase.operation") %></th>
     <th><%= t("testcase.result") %></th>
     <th><%= t("testcase.status") %></th>
-    <th><%= t("testcase.operation_at") %></th>
-    <th><%= t("testcase.check_at") %></th>
     <th><%= t("testcase.ticket_no") %></th>
     <th><%= t("testcase.spec_flag") %></th>
+    <th><%= t("testcase.operation_at") %></th>
+    <th><%= t("testcase.check_at") %></th>
     <th><%= t("testcase.create_user") %></th>
     <th><%= t("testcase.operation_user") %></th>
     <th><%= t("testcase.check_user") %></th>
@@ -38,6 +38,8 @@
     <td><%= testcase.operation %></td>
     <td><%= testcase.result %></td>
     <td><%= testcase.status %></td>
+    <td><%= link_to testcase.ticket_no, "http://redmine.pixta.jp/issues/#{testcase.ticket_no}", target: "_blank" unless testcase.ticket_no.blank? %></td>
+    <td><%= testcase.spec_flag %></td>
     <td>
       <% unless testcase.operation_at.blank? %>
         <%= testcase.operation_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.operation_at.wday]})" %>
@@ -52,8 +54,6 @@
         <center><%= link_to t("check"), { action: 'update', id: testcase.id, testcase: { check_user_id: session[:user_id], check_at: Time.now } }, confirm: "「#{testcase.title}」を対応します。よろしいですか？" %></center>
       <% end %>
     </td>
-    <td><%= link_to testcase.ticket_no, "http://redmine.pixta.jp/issues/#{testcase.ticket_no}", target: "_blank" unless testcase.ticket_no.blank? %></td>
-    <td><%= testcase.spec_flag %></td>
     <td><%= testcase.user.try(:name) %></td>
     <td><%= User.get_name( testcase.operation_user_id ) %></td>
     <td><%= User.get_name( testcase.check_user_id ) %></td>
