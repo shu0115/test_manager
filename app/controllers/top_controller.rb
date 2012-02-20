@@ -74,6 +74,8 @@ class TopController < ApplicationController
   #--------#
   def logout
     session[:user_id] = nil
+    session[:project_id] = nil
+    
     redirect_to( { action: "index" } ) and return
   end
 

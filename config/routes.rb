@@ -1,4 +1,6 @@
 TestList::Application.routes.draw do
+#  resources :functions
+
 #  resources :testcases
 
   get "top/index"

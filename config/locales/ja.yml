@@ -1,5 +1,7 @@
 ja:
+  # サイト内共通設定
   list: 一覧
+  new: 新規作成
   create: 作成
   show: 詳細
   edit: 編集
@@ -7,7 +9,12 @@ ja:
   delete: 削除
   done: 実施
   check: 対応
+  logout: ログアウト
+  testcase_function_level_1: 機能
+  testcase_function_level_2: サブ機能
+  testcase_function_level_3: 機能詳細
   
+  # ユーザ
   user:
     new: 新規登録
     entry: 登録
@@ -17,11 +24,13 @@ ja:
     password: パスワード
     password_confirmation: パスワード確認
   
+  # テストケース
   testcase:
-    new: 新規作成
-    edit: 編集
-    list: テスト項目一覧
-    title: テスト項目
+    title: テストケース
+#    new: 新規作成
+#    edit: 編集
+    list: テストケース一覧
+#    title: テスト項目
     page: ページURL
     operation: 操作
     result: 結果
@@ -36,3 +45,32 @@ ja:
     operation_check: 実施チェック
     ticket_no: チケット番号
     spec_flag: specフラグ
+    function: 機能
+    os: OS
+    browser: ブラウザ
+    category: 種別
+    test_user_id: ログインユーザID
+
+  # 機能名
+  function:
+    title: 機能名
+#    new: 新規作成
+#    edit: 編集
+    list: 機能名一覧
+#    delete: 削除
+    level: 階層
+    name: 名前
+    create: 登録
+    update: 更新
+
+  activerecord:
+    attributes:
+      testcase:
+        title: テストケース
+          
+    errors:
+      models:
+        testcase:
+          attributes:
+            title:
+              blank: を入力してください。

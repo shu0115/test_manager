@@ -16,6 +16,12 @@ class CreateTestcases < ActiveRecord::Migration
       t.string :ticket_no
       t.string :spec_flag
 
+      # 追加情報
+      t.string :os
+      t.string :browser
+      t.string :category
+      t.string :test_user_id
+      
       t.timestamps
     end
   end

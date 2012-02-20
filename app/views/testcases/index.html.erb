@@ -1,28 +1,56 @@
 <h1><%= t("testcase.list") %></h1>
 
-<%# 通知／エラーメッセージ %>
-<% if !flash[:notice].blank? %>
-  <p style="color: green;"><%=raw flash[:notice] %></p>
-<% elsif !flash[:alert].blank? %>
-  <p style="color: red;"><%=raw flash[:alert] %></p>
-<% end %>
-
 <table>
   <tr>
-    <th><%= t("testcase.title") %></th>
-    <th><%= t("testcase.created_at") %></th>
-    <th><%= t("testcase.page") %></th>
-    <th><%= t("testcase.operation") %></th>
-    <th><%= t("testcase.result") %></th>
-    <th><%= t("testcase.status") %></th>
-    <th><%= t("testcase.ticket_no") %></th>
-    <th><%= t("testcase.spec_flag") %></th>
-    <th><%= t("testcase.operation_at") %></th>
-    <th><%= t("testcase.check_at") %></th>
-    <th><%= t("testcase.create_user") %></th>
-    <th><%= t("testcase.operation_user") %></th>
-    <th><%= t("testcase.check_user") %></th>
-    <th><%= t("testcase.note") %></th>
+    <%# 機能階層 %>
+    <% 1.upto(@project.function_level){ |level| %>
+      <th><%= t("testcase_function_level_#{level}") %></th>
+    <% } %>
+    
+    <%# タイトル %>
+    <th><%= link_to @order[:mark][:title].to_s + t("testcase.title"), { action: 'index', order_key: "title", order_sort: @order[:sort][:title] } %></th>
+    
+    <%# 実施者 %>
+    <th><%= link_to @order[:mark][:operation_user_id].to_s + t("testcase.operation_user"), { action: 'index', order_key: "operation_user_id", order_sort: @order[:sort][:operation_user_id] } %></th>
+    
+    <%# 実施日 %>
+    <th><%= link_to @order[:mark][:operation_at].to_s + t("testcase.operation_at"), { action: 'index', order_key: "operation_at", order_sort: @order[:sort][:operation_at] } %></th>
+    
+    <%# ページURL %>
+    <% if false %><th><%= @order[:mark][:page].to_s + t("testcase.page") %></th><% end %>
+    <th><%= link_to @order[:mark][:page].to_s + t("testcase.page"), { action: 'index', order_key: "page", order_sort: @order[:sort][:page] } %></th>
+    
+    <%# 操作 %>
+    <% if false %><th style="width: 200px;"><%= @order[:mark][:operation].to_s + t("testcase.operation") %></th><% end %>
+    <th style="width: 200px;"><%= link_to @order[:mark][:operation].to_s + t("testcase.operation"), { action: 'index', order_key: "operation", order_sort: @order[:sort][:operation] } %></th>
+    
+    <%# 結果 %>
+    <% if false %><th style="width: 200px;"><%= @order[:mark][:result].to_s + t("testcase.result") %></th><% end %>
+    <th style="width: 200px;"><%= link_to @order[:mark][:result].to_s + t("testcase.result"), { action: 'index', order_key: "result", order_sort: @order[:sort][:result] } %></th>
+    
+    <%# ステータス %>
+    <th><%= link_to @order[:mark][:status].to_s + t("testcase.status"), { action: 'index', order_key: "status", order_sort: @order[:sort][:status] } %></th>
+    
+    <%# チケット番号 %>
+    <% if false %><th><%= @order[:mark][:ticket_no].to_s + t("testcase.ticket_no") %></th><% end %>
+    <th><%= link_to @order[:mark][:ticket_no].to_s + t("testcase.ticket_no"), { action: 'index', order_key: "ticket_no", order_sort: @order[:sort][:ticket_no] } %></th>
+    
+    <%# specフラグ %>
+    <% if false %><th><%= @order[:mark][:spec_flag].to_s + t("testcase.spec_flag") %></th><% end %>
+    <th><%= link_to @order[:mark][:spec_flag].to_s + t("testcase.spec_flag"), { action: 'index', order_key: "spec_flag", order_sort: @order[:sort][:spec_flag] } %></th>
+    
+    <%# 対応日 %>
+    <% if false %><th><%= @order[:mark][:check_at].to_s + t("testcase.check_at") %></th><% end %>
+    <th><%= link_to @order[:mark][:check_at].to_s + t("testcase.check_at"), { action: 'index', order_key: "check_at", order_sort: @order[:sort][:check_at] } %></th>
+    
+    <%# 対応者 %>
+    <% if false %><th><%= @order[:mark][:check_user].to_s + t("testcase.check_user") %></th><% end %>
+    <th><%= link_to @order[:mark][:check_user_id].to_s + t("testcase.check_user"), { action: 'index', order_key: "check_user_id", order_sort: @order[:sort][:check_user_id] } %></th>
+    
+    <%# 備考 %>
+    <% if false %><th style="width: 200px;"><%= @order[:mark][:note].to_s + t("testcase.note") %></th><% end %>
+    <th style="width: 200px;"><%= link_to @order[:mark][:note].to_s + t("testcase.note"), { action: 'index', order_key: "note", order_sort: @order[:sort][:note] } %></th>
+    
     <% if @testcases.length > 0 %>
     <th></th>
     <th></th>
@@ -32,8 +60,20 @@
 
 <% @testcases.each do |testcase| %>
   <tr>
+    <%# 機能名 %>
+    <% testcase.have_functions.sort{ |h1, h2| h1.level <=> h2.level }.each{ |have_function| %>
+      <td style="white-space: nowrap;"><%= have_function.function.try(:name) %></td>
+    <% } %>
     <td><%= testcase.title %></td>
-    <td><%= testcase.created_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.created_at.wday]})" unless testcase.created_at.blank? %></td>
+    <td style="white-space: nowrap;"><%= User.get_name( testcase.operation_user_id ) %></td>
+    <td>
+      <% unless testcase.operation_at.blank? %>
+        <%= testcase.operation_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.operation_at.wday]})" %>
+      <% else %>
+        <center><%= link_to t("done"), { action: 'update', id: testcase.id, testcase: { operation_user_id: session[:user_id], operation_at: Time.now } }, onClick: "return confirm('「#{testcase.title}」を実施します。よろしいですか？');" %></center>
+      <% end %>
+    </td>
+    <% if false %><td><%= testcase.created_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.created_at.wday]})" unless testcase.created_at.blank? %></td><% end %>
     <td><%= testcase.page %></td>
     <td><%= testcase.operation %></td>
     <td><%= testcase.result %></td>
@@ -41,30 +81,22 @@
     <td><%= link_to testcase.ticket_no, "http://redmine.pixta.jp/issues/#{testcase.ticket_no}", target: "_blank" unless testcase.ticket_no.blank? %></td>
     <td><%= testcase.spec_flag %></td>
     <td>
-      <% unless testcase.operation_at.blank? %>
-        <%= testcase.operation_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.operation_at.wday]})" %>
-      <% else %>
-        <center><%= link_to t("done"), { action: 'update', id: testcase.id, testcase: { operation_user_id: session[:user_id], operation_at: Time.now } }, confirm: "「#{testcase.title}」を実施します。よろしいですか？" %></center>
-      <% end %>
-    </td>
-    <td>
       <% unless testcase.check_at.blank? %>
         <%= testcase.check_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.check_at.wday]})" %>
       <% else %>
-        <center><%= link_to t("check"), { action: 'update', id: testcase.id, testcase: { check_user_id: session[:user_id], check_at: Time.now } }, confirm: "「#{testcase.title}」を対応します。よろしいですか？" %></center>
+        <center><%= link_to t("check"), { action: 'update', id: testcase.id, testcase: { check_user_id: session[:user_id], check_at: Time.now } }, onClick: "return confirm('「#{testcase.title}」を対応します。よろしいですか？');" %></center>
       <% end %>
     </td>
-    <td><%= testcase.user.try(:name) %></td>
-    <td><%= User.get_name( testcase.operation_user_id ) %></td>
-    <td><%= User.get_name( testcase.check_user_id ) %></td>
+    <% if false %><td><%= testcase.user.try(:name) %></td><% end %>
+    <td style="white-space: nowrap;"><%= User.get_name( testcase.check_user_id ) %></td>
     <td><%= testcase.note %></td>
-    <td><%= link_to t("show"), { action: 'show', id: testcase.id } %></td>
-    <td><%= link_to t("edit"), { action: 'edit', id: testcase.id } %></td>
-    <td><%= link_to t("delete"), { action: 'delete', id: testcase.id }, confirm: "「#{testcase.title}」を削除します。よろしいですか？" %></td>
+    <td style="white-space: nowrap;"><%= link_to t("show"), { action: 'show', id: testcase.id } %></td>
+    <td style="white-space: nowrap;"><%= link_to t("edit"), { action: 'edit', id: testcase.id, to_action: "update" } %></td>
+    <td style="white-space: nowrap;"><%= link_to t("delete"), { action: 'delete', id: testcase.id }, onClick: "return confirm('「#{testcase.title}」を削除します。よろしいですか？');" %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to t("testcase.new"), action: 'new' %>
+<%= link_to t("new"), action: 'new', to_action: "create" %>

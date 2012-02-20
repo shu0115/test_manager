@@ -1,4 +1,13 @@
+
 <p id="notice"><%= notice %></p>
+
+<%# 機能階層 %>
+<% 1.upto(@project.function_level){ |level| %>
+<p>
+  <b><%= t("testcase_function_level_#{level}") %>:</b><br />
+  <%= @have_functions[level] %>
+</p>
+<% } %>
 
 <p>
   <b><%= t("testcase.title") %>:</b><br />
@@ -31,13 +40,33 @@
 </p>
 
 <p>
-  <b><%= t("testcase.ticket_no") %>:</b><br />
-  <%= link_to @testcase.ticket_no, "http://redmine.pixta.jp/issues/#{@testcase.ticket_no}", target: "_blank" unless @testcase.ticket_no.blank? %>
+  <b><%= t("testcase.category") %>:</b><br />
+  <%= @testcase.category %>
+</p>
+
+<p>
+  <b><%= t("testcase.os") %>:</b><br />
+  <%= @testcase.os %>
+</p>
+
+<p>
+  <b><%= t("testcase.browser") %>:</b><br />
+  <%= @testcase.browser %>
 </p>
 
 <p>
   <b><%= t("testcase.spec_flag") %>:</b><br />
   <%= @testcase.spec_flag %>
+</p>
+
+<p>
+  <b><%= t("testcase.test_user_id") %>:</b><br />
+  <%= @testcase.test_user_id %>
+</p>
+
+<p>
+  <b><%= t("testcase.ticket_no") %>:</b><br />
+  <%= link_to @testcase.ticket_no, "http://redmine.pixta.jp/issues/#{@testcase.ticket_no}", target: "_blank" unless @testcase.ticket_no.blank? %>
 </p>
 
 <p>

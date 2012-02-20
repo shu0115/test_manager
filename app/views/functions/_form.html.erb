@@ -1,0 +1,27 @@
+<%= form_for( :function, url: { action: params[:to_action], id: params[:id] }) do |f| %>
+  <% if @function.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@function.errors.count, "error") %> prohibited this function from being saved:</h2>
+
+      <ul>
+      <% @function.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :level, t("function.level") %><br />
+    <%= f.select :level, @levels %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :name, t("function.name") %><br />
+    <%= f.text_field :name, size: 50 %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit t("function.#{params[:to_action]}") %>
+  </div>
+<% end %>

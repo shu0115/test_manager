@@ -9,5 +9,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 if Project.all.length <= 0
-  Project.create( name: "PIXTA" )
+  Project.create( name: "PIXTA", function_level: 3 )
 end

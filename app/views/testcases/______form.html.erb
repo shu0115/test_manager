@@ -1,10 +1,7 @@
-
-<h1><%= "#{t('testcase.title')} #{t('edit')}" %></h1>
-
-<%= form_for( :testcase, url: { action: 'update', id: @testcase.id } ) do |f| %>
+<%= form_for( :testcase, url: { :action => params[:to_action] } ) do |f| %>
   <% if @testcase.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@testcase.errors.count, "error") %> prohibited this testcase from being saved:</h2>
+      <h2><%= pluralize(@testcase.errors.count, "error") %></h2>
 
       <ul>
       <% @testcase.errors.full_messages.each do |msg| %>
@@ -13,16 +10,16 @@
       </ul>
     </div>
   <% end %>
-  
+
   <%# 機能階層 %>
-  <% 1.upto(@project.function_level){ |level| %>
+  <% 1.upto(@project.function_level){ |index| %>
   <div class="field">
-    <%= f.label "function_level_#{level}", t("testcase_function_level_#{level}") %><br />
-    <select id="function_level_<%= level %>" name="function_level[<%= level %>]" style="width: 200px;">
+    <%= f.label "function_level_#{index}", "#{t('testcase.function')}#{t('function.level')}#{index}" %>
+    <select id="function_level_<%= index %>" name="function_level[<%= index %>]" style="width: 100px;">
       <option value="">-</option>
       <% @project.functions.each{ |func| %>
-      <% if func.level == level %>
-        <% if @have_functions[level][:id] == func.id %>
+        <% if func.level == index %>
+          <% if func.id.to_s == @function_level[index.to_s].to_s %>
             <option value="<%= func.id %>" selected="selected"><%= func.name %></option>
           <% else%>
             <option value="<%= func.id %>"><%= func.name %></option>
@@ -33,7 +30,7 @@
     <br />
   </div>
   <% } %>
-
+  
   <div class="field">
     <%= f.label :title, t("testcase.title") %><br />
     <%= f.text_field :title, size: 50 %>
@@ -56,51 +53,32 @@
 
   <div class="field">
     <%= f.label :status, t("testcase.status") %><br />
-    <%= f.select :status, STATUS %>
-  </div>
-
-  <div class="field">
-    <%= f.label :category, t("testcase.category") %><br />
-    <%= f.select :category, CATEGORY %>
-  </div>
-
-  <div class="field">
-    <%= f.label :os, t("testcase.os") %><br />
-    <%= f.select :os, OS %>
-  </div>
-
-  <div class="field">
-    <%= f.label :browser, t("testcase.browser") %><br />
-    <%= f.select :browser, BROWSER %>
-  </div>
-
-  <div class="field">
-    <%= f.label :spec_flag, t("testcase.spec_flag") %><br />
-    <%= f.select :spec_flag, SPEC_FLAG %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :test_user_id, t("testcase.test_user_id") %><br />
-    <%= f.text_field :test_user_id %>
+    <%= f.text_field :status %>
   </div>
 
   <div class="field">
     <%= f.label :ticket_no, t("testcase.ticket_no") %><br />
     <%= f.text_field :ticket_no %>
   </div>
+
+  <div class="field">
+    <%= f.label :spec_flag, t("testcase.spec_flag") %><br />
+    <%= f.text_field :spec_flag %>
+  </div>
+  
+  <div class="field">
+    <%= f.check_box( :operation_check, { checked: true }, "done" ) %>
+    <%= f.label :operation_check, t("testcase.operation_check") %>
+  </div>
   
   <div class="field">
     <%= f.label :note, t("testcase.note") %><br />
     <%= f.text_area :note, rows: 10 %>
   </div>
+
+  <br />
   
   <div class="actions">
-    <%= f.submit t("update") %>
+    <%= f.submit t("create") %>
   </div>
 <% end %>
-
-<br />
-
-<%= link_to t("show"), { actin: "show", id: @testcase.id } %>
-　<%= link_to t("list"), :action => 'index' %><br />
-<br />
