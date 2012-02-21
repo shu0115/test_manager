@@ -12,17 +12,30 @@ class Testcase < ActiveRecord::Base
   #-----------------#
   # self.set_filter #
   #-----------------#
+  # フィルタ機能
   def self.set_filter( args )
     testcases = args[:testcases]
     set_filter = args[:set_filter]
-    
+    have_ids = Array.new
+    first_flag = 1
+    have_function_flag = 0
+
     set_filter.each_pair{ |key, value|
       unless value.blank?
         if key == "function_level"
           value.each_pair{ |key2, value2|
             unless value2.blank?
-              have_ids = HaveFunction.where( function_id: value2, level: key2 ).uniq.pluck( :testcase_id )
-              testcases = testcases.where( id: have_ids )
+              get_ids = HaveFunction.where( function_id: value2, level: key2 ).uniq.pluck( :testcase_id )
+              
+              # OPTIMIZE: have_idsのblank?判定では初期値の空欄と機能階層フィルタ結果による空欄の区別が付かないためfirst_flagにより初期値空欄を判別(初期値の場合は配列のAND演算をせずそのまま取得したidを配列に格納する) 2012/02/21 Shun Matsumoto
+              if first_flag == 1
+                have_ids = get_ids
+                first_flag = 0
+                have_function_flag = 1
+              else
+                # 配列のAND演算
+                have_ids &= get_ids
+              end
             end
           }
         else
@@ -31,12 +44,18 @@ class Testcase < ActiveRecord::Base
       end
     }
     
+    # OPTIMIZE:初期値の空欄か機能階層フィルタ後の空欄かを判別するためにhave_function_flag条件を指定している 2012/02/21 Shun Matsumoto
+    if !have_ids.blank? or have_function_flag == 1
+      testcases = testcases.where( id: have_ids )
+    end
+    
     return testcases
   end
   
   #-----------------#
   # self.set_search #
   #-----------------#
+  # 検索機能
   def self.set_search( args )
     search = args[:search].presence || Hash.new
     set_order = args[:set_order]
@@ -56,6 +75,7 @@ class Testcase < ActiveRecord::Base
   #----------------#
   # self.set_order #
   #----------------#
+  # ソート機能
   def self.set_order( args )
     order = Hash.new{ |hash, key| hash[key] = Hash.new }
     param_order = args[:order].presence || Hash.new
