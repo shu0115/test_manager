@@ -1,20 +1,45 @@
 # coding: utf-8
 class TestcasesController < ApplicationController
   
+  PER_PAGE = 50
+  
   #-------#
   # index #
   #-------#
   def index
+    # 初期条件設定
+    @testcases = Testcase.where( project_id: session[:project_id] ).includes( :user ).includes( :have_functions => :function )
+
     # ソート設定生成
-    @order, set_order = Testcase.get_order( order_key: params[:order_key], order_sort: params[:order_sort] )
+    @order, set_order = Testcase.set_order( order: params[:order] )
     
-    @testcases = Testcase.where( project_id: session[:project_id] ).includes( :user ).includes( :have_functions => :function ).order( set_order ).all
-    @project = Project.where( id: session[:project_id] ).first
+    # フィルタ条件追加
+    @set_filter = params[:set_filter].presence || Hash.new{ |hash, key| hash[key] = Hash.new }
+    @testcases = Testcase.set_filter( testcases: @testcases, set_filter: @set_filter )
     
+    # 検索
+    @search = params[:search].presence || Hash.new
+    @testcases = Testcase.set_search( testcases: @testcases, search: @search, set_order: set_order )
+    
+    # ページング
+    @testcases = @testcases.page( params[:page] ).per( PER_PAGE )
+
     # 機能名ハッシュ生成
     @function_hash = Hash.new
     functions = Function.where( project_id: session[:project_id] ).select( "id, name" ).all
     functions.each{ |f| @function_hash[f.id] = f.name }
+    
+    # 名前配列取得
+    @user_names = User.uniq.order( "name ASC" ).select( "id, name" )
+
+    # プロジェクト取得
+    @project = Project.where( id: session[:project_id] ).first
+    
+    # 機能名取得
+    @functions = Hash.new
+    1.upto(@project.function_level){ |level|
+      @functions[level] = Function.where( project_id: session[:project_id], level: level ).uniq.order( "name ASC" ).select( "id, name" )
+    }
   end
 
   #------#
@@ -93,7 +118,7 @@ class TestcasesController < ApplicationController
         have_function.update_attributes( function_id: function_level[have_function.level.to_s] )
       }
       
-      redirect_to( { action: "index" }, notice: "更新が完了しました。" )
+      redirect_to( { action: "index", order: params[:order], search: params[:search] }, notice: "更新が完了しました。" )
     else
       render action: "edit"
     end

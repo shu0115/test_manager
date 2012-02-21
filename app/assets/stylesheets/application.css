@@ -20,6 +20,18 @@ table, tr, th, td {
   border-spacing: 0px;
 }
 
+.search table, .search tr, .search td {
+  border: 0px solid #aaa;
+  padding: 0px;
+}
+
+/*
+.search select {
+  width: 150px;
+}
+*/
+
 th {
   white-space: nowrap;
 }
+

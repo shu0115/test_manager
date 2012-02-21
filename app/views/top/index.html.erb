@@ -1,5 +1,9 @@
 <h1>Top#index</h1>
 
+<%= link_to t("user.new"), { action: 'new' } %><br />
+
+<br />
+
 <%= form_for( :user, :url => { :action => "login" } ) do |f| %>
   <div class="field">
     <%= f.label :login_id, t("user.login_id") %><br />
@@ -15,9 +19,5 @@
     <%= f.submit t("user.login") %>
   </div>
 <% end %>
-
-<br />
-
-<%= link_to t("user.new"), { action: 'new' } %><br />
 
 <br />

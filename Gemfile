@@ -1,4 +1,5 @@
-source 'https://rubygems.org'
+#source 'https://rubygems.org'
+source 'http://production.cf.rubygems.org/'
 
 gem 'rails', '3.2.1'
 
@@ -36,3 +37,6 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+# Pagination
+gem 'kaminari'

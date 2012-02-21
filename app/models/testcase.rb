@@ -9,27 +9,72 @@ class Testcase < ActiveRecord::Base
   
   private
   
-  #----------------#
-  # self.get_order #
-  #----------------#
-  def self.get_order( args )
-    order_key = args[:order_key].presence || "operation_at"
-    order_sort = args[:order_sort].presence || "DESC"
-
-    order = Hash.new{ |hash, key| hash[key] = Hash.new }
+  #-----------------#
+  # self.set_filter #
+  #-----------------#
+  def self.set_filter( args )
+    testcases = args[:testcases]
+    set_filter = args[:set_filter]
     
-    # ソート順設定
-    order[:sort] = Testcase.set_default_sort( order_key, order_sort )
-    if order[:sort][order_key.to_sym] == "ASC"
-      order[:sort][order_key.to_sym] = "DESC"
+    set_filter.each_pair{ |key, value|
+      unless value.blank?
+        if key == "function_level"
+          value.each_pair{ |key2, value2|
+            unless value2.blank?
+              have_ids = HaveFunction.where( function_id: value2, level: key2 ).uniq.pluck( :testcase_id )
+              testcases = testcases.where( id: have_ids )
+            end
+          }
+        else
+          testcases = testcases.where( "#{key} = :#{key}", { key => value }.symbolize_keys )
+        end
+      end
+    }
+    
+    return testcases
+  end
+  
+  #-----------------#
+  # self.set_search #
+  #-----------------#
+  def self.set_search( args )
+    search = args[:search].presence || Hash.new
+    set_order = args[:set_order]
+    
+    testcases = args[:testcases]
+    
+    if !search[:target].blank? and !search[:word].blank?
+      condition = [ "#{search[:target]} LIKE :#{search[:target]}", { search[:target] => "%#{search[:word]}%" }.symbolize_keys ]
+      testcases = testcases.where( condition ).order( set_order )
     else
-      order[:sort][order_key.to_sym] = "ASC"
+      testcases = testcases.order( set_order )
+    end
+    
+    return testcases
+  end
+  
+  #----------------#
+  # self.set_order #
+  #----------------#
+  def self.set_order( args )
+    order = Hash.new{ |hash, key| hash[key] = Hash.new }
+    param_order = args[:order].presence || Hash.new
+    order[:key] = param_order[:key].presence || "operation_at"
+    order[:sort] = param_order[:sort].presence || "DESC"
+
+    # ソート順設定
+    order[:item] = Testcase.set_default_sort( order )
+    
+    if order[:item][order[:key].to_sym] == "ASC"
+      order[:item][order[:key].to_sym] = "DESC"
+    else
+      order[:item][order[:key].to_sym] = "ASC"
     end
 
     # ソートマーク設定
-    order[:mark] = Testcase.set_mark( order_key, order_sort )
+    order[:mark] = Testcase.set_mark( order )
 
-    set_order = "#{order_key} #{order_sort}"
+    set_order = "#{order[:key]} #{order[:sort]}"
     
     return order, set_order
   end
@@ -37,7 +82,7 @@ class Testcase < ActiveRecord::Base
   #-----------------------#
   # self.set_default_sort #
   #-----------------------#
-  def self.set_default_sort( now_key, now_sort )
+  def self.set_default_sort( order )
     order_sort = Hash.new
     order_sort[:title] = "ASC"
     order_sort[:status] = "ASC"
@@ -54,7 +99,7 @@ class Testcase < ActiveRecord::Base
     order_sort[:note] = "ASC"
     
     # クリックされたソート指定で上書き
-    order_sort[now_key.to_sym] = now_sort
+    order_sort[order[:key].to_sym] = order[:sort]
     
     return order_sort
   end
@@ -62,13 +107,13 @@ class Testcase < ActiveRecord::Base
   #---------------#
   # self.set_mark #
   #---------------#
-  def self.set_mark( now_key, now_sort )
+  def self.set_mark( order )
     order_mark = Hash.new
     
-    if now_sort == "ASC"
-      order_mark[now_key.to_sym] = "▲"
+    if order[:sort] == "ASC"
+      order_mark[order[:key].to_sym] = "▲"
     else
-      order_mark[now_key.to_sym] = "▼"
+      order_mark[order[:key].to_sym] = "▼"
     end
     
     return order_mark

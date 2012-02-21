@@ -74,3 +74,9 @@ ja:
           attributes:
             title:
               blank: を入力してください。
+
+  views:
+    pagination:
+      previous: "Prev"
+      next: "Next"
+      truncate: "..."
