@@ -8,6 +8,7 @@ class CreateTestcases < ActiveRecord::Migration
       t.text :operation
       t.text :result
       t.string :status
+      t.string :judge
       t.text :note
       t.integer :operation_user_id
       t.integer :check_user_id

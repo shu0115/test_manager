@@ -46,6 +46,10 @@ class TestcasesController < ApplicationController
   # show #
   #------#
   def show
+    @order = params[:order]
+    @search = params[:search]
+    @set_filter = params[:set_filter]
+    
     @testcase = Testcase.where( id: params[:id], project_id: session[:project_id] ).includes( :user ).includes( :have_functions => :function ).first
     @project = Project.where( id: session[:project_id] ).includes( :functions ).first
     
@@ -58,6 +62,10 @@ class TestcasesController < ApplicationController
   # new #
   #-----#
   def new
+    @order = params[:order]
+    @search = params[:search]
+    @set_filter = params[:set_filter]
+    
     @testcase = Testcase.new
     @project = Project.where( id: session[:project_id] ).includes( :functions ).first
     @function_level = params[:function_level].presence || Hash.new
@@ -67,6 +75,10 @@ class TestcasesController < ApplicationController
   # edit #
   #------#
   def edit
+    @order = params[:order]
+    @search = params[:search]
+    @set_filter = params[:set_filter]
+    
     @testcase = Testcase.where( id: params[:id], project_id: session[:project_id] ).includes( :user ).includes( :have_functions => :function ).first
     @project = Project.where( id: session[:project_id] ).includes( :functions ).first
     
@@ -97,9 +109,11 @@ class TestcasesController < ApplicationController
         HaveFunction.create( testcase_id: @testcase.id, function_id: value, level: key )
       }
     
-      redirect_to( { action: "index" }, notice: 'テストケースの作成が完了しました。' )
+      redirect_to( { action: "index", order: params[:order], search: params[:search], set_filter: params[:set_filter] }, notice: 'テストケースの作成が完了しました。' )
     else
-      
+      @order = params[:order]
+      @search = params[:search]
+      @set_filter = params[:set_filter]
       render action: "new"
     end
   end
@@ -118,8 +132,11 @@ class TestcasesController < ApplicationController
         have_function.update_attributes( function_id: function_level[have_function.level.to_s] )
       }
       
-      redirect_to( { action: "index", order: params[:order], search: params[:search] }, notice: "更新が完了しました。" )
+      redirect_to( { action: "index", order: params[:order], search: params[:search], set_filter: params[:set_filter] }, notice: "更新が完了しました。" )
     else
+      @order = params[:order]
+      @search = params[:search]
+      @set_filter = params[:set_filter]
       render action: "edit"
     end
   end
@@ -131,10 +148,12 @@ class TestcasesController < ApplicationController
     @testcase = Testcase.where( id: params[:id] ).first
     
     if @testcase.destroy
-      redirect_to( { action: "index" }, notice: "削除が完了しました。" )
+      msg = "削除が完了しました。"
     else
-      redirect_to( { action: "index" }, notice: "削除に失敗しました。" )
+      msg = "削除に失敗しました。"
     end
+    
+    redirect_to( { action: "index", order: params[:order], search: params[:search], set_filter: params[:set_filter] }, notice: msg )
   end
 
 end

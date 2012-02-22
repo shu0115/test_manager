@@ -40,10 +40,22 @@
       <td><%= select_tag( "set_filter[operation_user_id]", options_from_collection_for_select( @user_names, :id, :name, @set_filter[:operation_user_id] ), { prompt: "-" } ) %></td>
     </tr>
     
+    <%# 種別 %>
+    <tr>
+      <td><%= t("testcase.category") %>：</td>
+      <td><%= select_tag( "set_filter[category]", options_for_select( CATEGORY, selected: @set_filter[:category] ), { prompt: "-" } ) %></td>
+    </tr>
+    
     <%# ステータス %>
     <tr>
       <td><%= t("testcase.status") %>：</td>
       <td><%= select_tag( "set_filter[status]", options_for_select( STATUS, selected: @set_filter[:status] ), { prompt: "-" } ) %></td>
+    </tr>
+    
+    <%# 判定 %>
+    <tr>
+      <td><%= t("testcase.judge") %>：</td>
+      <td><%= select_tag( "set_filter[judge]", options_for_select( JUDGE, selected: @set_filter[:judge] ), { prompt: "-" } ) %></td>
     </tr>
     
     <%# specフラグ %>
@@ -56,8 +68,6 @@
     <tr>
       <td><%= t("testcase.check_user") %>：</td>
       <td><%= select_tag( "set_filter[check_user_id]", options_from_collection_for_select( @user_names, :id, :name, @set_filter[:check_user_id] ), { prompt: "-" } ) %>
-
-      <%#= select_tag( "set_filter[check_user]", options_for_select( @user_names, selected: @set_filter[:check_user] ), { prompt: "-" } ) %></td>
     </tr>
   </table>
   </div>
@@ -68,10 +78,15 @@
 
 <br />
 
-<%= paginate @testcases %>
+<%= link_to t("new"), action: 'new', to_action: "create" %><br />
 
 <br />
 
+<%= paginate @testcases %>
+
+<div style="text-align: right;"><%=raw page_entries_info @testcases %></div>
+
+<%# テストケース一覧 %>
 <table>
   <tr>
     <%# 機能階層 %>
@@ -80,64 +95,48 @@
     <% } %>
     
     <%# タイトル %>
-    <th>
-      <%= link_to @order[:mark][:title].to_s + t("testcase.title"), { action: 'index', order: { key: "title", sort: @order[:item][:title] }, search: @search, set_filter: @set_filter } %>
-    </th>
+    <th style="white-space: nowrap;"><%= link_to @order[:mark][:title].to_s + t("testcase.title"), { action: 'index', order: { key: "title", sort: @order[:item][:title] }, search: @search, set_filter: @set_filter } %></th>
     
     <%# 実施者 %>
-    <th>
-      <%= link_to @order[:mark][:operation_user_id].to_s + t("testcase.operation_user"), { action: 'index', order: { key: "operation_user_id", sort: @order[:item][:operation_user_id] }, search: @search, set_filter: @set_filter } %>
-    </th>
+    <th><%= link_to @order[:mark][:operation_user_id].to_s + t("testcase.operation_user"), { action: 'index', order: { key: "operation_user_id", sort: @order[:item][:operation_user_id] }, search: @search, set_filter: @set_filter } %></th>
     
     <%# 実施日 %>
-    <th>
-      <%= link_to @order[:mark][:operation_at].to_s + t("testcase.operation_at"), { action: 'index', order: { key: "operation_at", sort: @order[:item][:operation_at] }, search: @search, set_filter: @set_filter } %>
-    </th>
+    <th><%= link_to @order[:mark][:operation_at].to_s + t("testcase.operation_at"), { action: 'index', order: { key: "operation_at", sort: @order[:item][:operation_at] }, search: @search, set_filter: @set_filter } %></th>
     
     <%# ページURL %>
-    <th>
-      <%= link_to @order[:mark][:page].to_s + t("testcase.page"), { action: 'index', order: { key: "page", sort: @order[:item][:page] }, search: @search, set_filter: @set_filter } %>
-    </th>
+<% if false %>
+<th><%= link_to @order[:mark][:page].to_s + t("testcase.page"), { action: 'index', order: { key: "page", sort: @order[:item][:page] }, search: @search, set_filter: @set_filter } %></th>
+<% end %>
     
     <%# 操作 %>
-    <th style="width: 200px;">
-      <%= link_to @order[:mark][:operation].to_s + t("testcase.operation"), { action: 'index', order: { key: "operation", sort: @order[:item][:operation] }, search: @search, set_filter: @set_filter } %>
-    </th>
+    <th style="width: 200px;"><%= link_to @order[:mark][:operation].to_s + t("testcase.operation"), { action: 'index', order: { key: "operation", sort: @order[:item][:operation] }, search: @search, set_filter: @set_filter } %></th>
     
     <%# 結果 %>
-    <th style="width: 200px;">
-      <%= link_to @order[:mark][:result].to_s + t("testcase.result"), { action: 'index', order: { key: "result", sort: @order[:item][:result] }, search: @search, set_filter: @set_filter } %>
-    </th>
+    <th style="width: 200px;"><%= link_to @order[:mark][:result].to_s + t("testcase.result"), { action: 'index', order: { key: "result", sort: @order[:item][:result] }, search: @search, set_filter: @set_filter } %></th>
+    
+    <%# 種別 %>
+    <th><%= link_to @order[:mark][:category].to_s + t("testcase.category"), { action: 'index', order: { key: "category", sort: @order[:item][:category] }, search: @search, set_filter: @set_filter } %></th>
     
     <%# ステータス %>
-    <th>
-      <%= link_to @order[:mark][:status].to_s + t("testcase.status"), { action: 'index', order: { key: "status", sort: @order[:item][:status] }, search: @search, set_filter: @set_filter } %>
-    </th>
+    <th><%= link_to @order[:mark][:status].to_s + t("testcase.status"), { action: 'index', order: { key: "status", sort: @order[:item][:status] }, search: @search, set_filter: @set_filter } %></th>
+    
+    <%# 判定 %>
+    <th><%= link_to @order[:mark][:judge].to_s + t("testcase.judge"), { action: 'index', order: { key: "judge", sort: @order[:item][:judge] }, search: @search, set_filter: @set_filter } %></th>
     
     <%# チケット番号 %>
-    <th>
-      <%= link_to @order[:mark][:ticket_no].to_s + t("testcase.ticket_no"), { action: 'index', order: { key: "ticket_no", sort: @order[:item][:ticket_no] }, search: @search, set_filter: @set_filter } %>
-    </th>
+    <th><%= link_to @order[:mark][:ticket_no].to_s + t("testcase.ticket_no"), { action: 'index', order: { key: "ticket_no", sort: @order[:item][:ticket_no] }, search: @search, set_filter: @set_filter } %></th>
     
     <%# specフラグ %>
-    <th>
-      <%= link_to @order[:mark][:spec_flag].to_s + t("testcase.spec_flag"), { action: 'index', order: { key: "spec_flag", sort: @order[:item][:spec_flag] }, search: @search, set_filter: @set_filter } %>
-    </th>
+    <th><%= link_to @order[:mark][:spec_flag].to_s + t("testcase.spec_flag"), { action: 'index', order: { key: "spec_flag", sort: @order[:item][:spec_flag] }, search: @search, set_filter: @set_filter } %></th>
     
     <%# 対応日 %>
-    <th>
-      <%= link_to @order[:mark][:check_at].to_s + t("testcase.check_at"), { action: 'index', order: { key: "check_at", sort: @order[:item][:check_at] }, search: @search, set_filter: @set_filter } %>
-    </th>
+    <th><%= link_to @order[:mark][:check_at].to_s + t("testcase.check_at"), { action: 'index', order: { key: "check_at", sort: @order[:item][:check_at] }, search: @search, set_filter: @set_filter } %></th>
     
     <%# 対応者 %>
-    <th>
-      <%= link_to @order[:mark][:check_user_id].to_s + t("testcase.check_user"), { action: 'index', order: { key: "check_user_id", sort: @order[:item][:check_user_id] }, search: @search, set_filter: @set_filter } %>
-    </th>
+    <th><%= link_to @order[:mark][:check_user_id].to_s + t("testcase.check_user"), { action: 'index', order: { key: "check_user_id", sort: @order[:item][:check_user_id] }, search: @search, set_filter: @set_filter } %></th>
     
     <%# 備考 %>
-    <th style="width: 200px;">
-      <%= link_to @order[:mark][:note].to_s + t("testcase.note"), { action: 'index', order: { key: "note", sort: @order[:item][:note] }, search: @search, set_filter: @set_filter } %>
-    </th>
+    <th style="width: 200px;"><%= link_to @order[:mark][:note].to_s + t("testcase.note"), { action: 'index', order: { key: "note", sort: @order[:item][:note] }, search: @search, set_filter: @set_filter } %></th>
     
     <% if @testcases.length > 0 %>
     <th></th>
@@ -166,12 +165,14 @@
       <% unless testcase.operation_at.blank? %>
         <%= testcase.operation_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.operation_at.wday]})" %>
       <% else %>
-        <center><%= link_to t("done"), { action: 'update', id: testcase.id, testcase: { operation_user_id: session[:user_id], operation_at: Time.now }, order: @order, search: @search }, onClick: "return confirm('「#{testcase.title}」を実施します。よろしいですか？');" %></center>
+        <center><%= link_to t("done"), { action: 'update', id: testcase.id, testcase: { operation_user_id: session[:user_id], operation_at: Time.now }, order: @order, search: @search, set_filter: @set_filter }, onClick: "return confirm('「#{testcase.title}」を実施します。よろしいですか？');" %></center>
       <% end %>
     </td>
     
     <%# ページURL %>
+<% if false %>
     <td><%= testcase.page %></td>
+<% end %>
     
     <%# 操作 %>
     <td><%= testcase.operation %></td>
@@ -179,8 +180,17 @@
     <%# 結果 %>
     <td><%= testcase.result %></td>
     
+    <%# 種別 %>
+    <td style="white-space: nowrap;"><%= testcase.category %></td>
+    
     <%# ステータス %>
     <td><%= testcase.status %></td>
+    
+    <%# 判定 %>
+    <% if testcase.judge == "OK" then color = "blue" %>
+    <% elsif testcase.judge == "NG" then color = "red" %>
+    <% end %>
+    <td style="color: <%= color %>;"><%= testcase.judge %></td>
     
     <%# チケット番号 %>
     <td><%= link_to testcase.ticket_no, "http://redmine.pixta.jp/issues/#{testcase.ticket_no}", target: "_blank" unless testcase.ticket_no.blank? %></td>
@@ -193,7 +203,7 @@
       <% unless testcase.check_at.blank? %>
         <%= testcase.check_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.check_at.wday]})" %>
       <% else %>
-        <center><%= link_to t("check"), { action: 'update', id: testcase.id, testcase: { check_user_id: session[:user_id], check_at: Time.now }, order: @order, search: @search }, onClick: "return confirm('「#{testcase.title}」を対応します。よろしいですか？');" %></center>
+        <center><%= link_to t("check"), { action: 'update', id: testcase.id, testcase: { check_user_id: session[:user_id], check_at: Time.now }, order: @order, search: @search, set_filter: @set_filter }, onClick: "return confirm('「#{testcase.title}」を対応します。よろしいですか？');" %></center>
       <% end %>
     </td>
     
@@ -203,9 +213,9 @@
     <%# 備考 %>
     <td><%= testcase.note %></td>
     
-    <td style="white-space: nowrap;"><%= link_to t("show"), { action: 'show', id: testcase.id } %></td>
-    <td style="white-space: nowrap;"><%= link_to t("edit"), { action: 'edit', id: testcase.id, to_action: "update" } %></td>
-    <td style="white-space: nowrap;"><%= link_to t("delete"), { action: 'delete', id: testcase.id }, onClick: "return confirm('「#{testcase.title}」を削除します。よろしいですか？');" %></td>
+    <td style="white-space: nowrap;"><%= link_to t("show"), { action: 'show', id: testcase.id, order: @order, search: @search, set_filter: @set_filter } %></td>
+    <td style="white-space: nowrap;"><%= link_to t("edit"), { action: 'edit', id: testcase.id, to_action: "update", order: @order, search: @search, set_filter: @set_filter } %></td>
+    <td style="white-space: nowrap;"><%= link_to t("delete"), { action: 'delete', id: testcase.id, order: @order, search: @search, set_filter: @set_filter }, onClick: "return confirm('「#{testcase.title}」を削除します。よろしいですか？');" %></td>
   </tr>
 <% end %>
 </table>
@@ -216,6 +226,6 @@
 
 <br />
 
-<%= link_to t("new"), action: 'new', to_action: "create" %><br />
+<%= link_to t("new"), action: 'new', to_action: "create", order: @order, search: @search, set_filter: @set_filter %><br />
 
 <br />

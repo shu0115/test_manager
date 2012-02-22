@@ -21,7 +21,7 @@
 
 <p>
   <b><%= t("testcase.page") %>:</b><br />
-  <%= @testcase.page %>
+  <%= link_to @testcase.page, @testcase.page, target: "_blank" %>
 </p>
 
 <p>
@@ -37,6 +37,11 @@
 <p>
   <b><%= t("testcase.status") %>:</b><br />
   <%= @testcase.status %>
+</p>
+
+<p>
+  <b><%= t("testcase.judge") %>:</b><br />
+  <%= @testcase.judge %>
 </p>
 
 <p>
@@ -99,6 +104,6 @@
   <%= @testcase.note %>
 </p>
 
-<%= link_to t("edit"), { action: 'edit', id: @testcase.id } %>
-　<%= link_to t("list"), :action => 'index' %><br />
+<%= link_to t("edit"), { action: 'edit', id: @testcase.id, order: @order, search: @search, set_filter: @set_filter } %>
+　<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter %><br />
 <br />

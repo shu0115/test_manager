@@ -3,7 +3,7 @@ TestList::Application.routes.draw do
 
 #  resources :testcases
 
-  get "top/index"
+#  get "top/index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

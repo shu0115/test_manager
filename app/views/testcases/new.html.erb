@@ -1,7 +1,7 @@
 
 <h1><%= "#{t('testcase.title')} #{t('new')}" %></h1>
 
-<%= form_for( :testcase, url: { :action => 'create' } ) do |f| %>
+<%= form_for( :testcase, url: { :action => 'create', order: @order, search: @search, set_filter: @set_filter } ) do |f| %>
   <% if @testcase.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@testcase.errors.count, "error") %></h2>
@@ -34,66 +34,85 @@
   </div>
   <% } %>
   
+  <%# タイトル %>
   <div class="field">
     <%= f.label :title, t("testcase.title") %><br />
     <%= f.text_field :title, size: 50 %>
   </div>
   
+  <%# ページURL %>
   <div class="field">
     <%= f.label :page, t("testcase.page") %><br />
     <%= f.text_field :page, size: 50 %>
   </div>
   
+  <%# 操作 %>
   <div class="field">
     <%= f.label :operation, t("testcase.operation") %><br />
     <%= f.text_area :operation, rows: 10 %>
   </div>
   
+  <%# 結果 %>
   <div class="field">
     <%= f.label :result, t("testcase.result") %><br />
     <%= f.text_area :result, rows: 10 %>
   </div>
 
+  <%# 種別 %>
+  <div class="field">
+    <%= f.label :category, t("testcase.category") %><br />
+    <%= f.select :category, CATEGORY, include_blank: "-" %>
+  </div>
+
+  <%# ステータス %>
   <div class="field">
     <%= f.label :status, t("testcase.status") %><br />
     <%= f.select :status, STATUS %>
   </div>
 
+  <%# 判定 %>
   <div class="field">
-    <%= f.label :category, t("testcase.category") %><br />
-    <%= f.select :category, CATEGORY %>
+    <%= f.label :judge, t("testcase.judge") %><br />
+    <%= f.select :judge, JUDGE, include_blank: "-" %>
   </div>
 
+  <%# OS %>
   <div class="field">
     <%= f.label :os, t("testcase.os") %><br />
-    <%= f.select :os, OS %>
+    <%= f.select :os, OS, include_blank: "-" %>
   </div>
 
+  <%# ブラウザ %>
   <div class="field">
     <%= f.label :browser, t("testcase.browser") %><br />
-    <%= f.select :browser, BROWSER %>
+    <%= f.select :browser, BROWSER, include_blank: "-" %>
   </div>
 
+  <%# specフラグ %>
   <div class="field">
     <%= f.label :spec_flag, t("testcase.spec_flag") %><br />
     <%= f.select :spec_flag, SPEC_FLAG %>
   </div>
   
+  <%# ログインユーザID %>
   <div class="field">
     <%= f.label :test_user_id, t("testcase.test_user_id") %><br />
     <%= f.text_field :test_user_id %>
   </div>
   
+  <%# チケット番号 %>
   <div class="field">
     <%= f.label :ticket_no, t("testcase.ticket_no") %><br />
     <%= f.text_field :ticket_no %>
   </div>
 
+  <%# 実施チェック %>
   <div class="field">
     <%= f.check_box( :operation_check, { checked: true }, "done" ) %>
     <%= f.label :operation_check, t("testcase.operation_check") %>
   </div>
   
+  <%# 備考 %>
   <div class="field">
     <%= f.label :note, t("testcase.note") %><br />
     <%= f.text_area :note, rows: 10 %>
@@ -108,6 +127,6 @@
 
 <br />
 
-<%= link_to t("list"), :action => 'index' %><br />
+<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter %><br />
 
 <br />

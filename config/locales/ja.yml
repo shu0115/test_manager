@@ -35,6 +35,7 @@ ja:
     operation: 操作
     result: 結果
     status: ステータス
+    judge: 判定
     note: 備考
     create_user: 作成者
     operation_user: 実施者
@@ -59,6 +60,7 @@ ja:
     list: 機能名一覧
 #    delete: 削除
     level: 階層
+    level_name: 階層名
     name: 名前
     create: 登録
     update: 更新
