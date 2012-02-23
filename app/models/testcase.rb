@@ -1,6 +1,6 @@
 # coding: utf-8
 class Testcase < ActiveRecord::Base
-
+  
   has_many :have_functions
   belongs_to :user
 
