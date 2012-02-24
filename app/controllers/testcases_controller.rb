@@ -6,7 +6,13 @@ class TestcasesController < ApplicationController
   #-------#
   def index
     # 表示項目設定
-    @display = params[:display].presence || Hash.new{ |hash, key| hash[key] = "true" }
+    if params[:commit] == "リセット"
+      @display = Hash.new{ |hash, key| hash[key] = "true" }
+      session[:display] = Hash.new
+    else
+      @display = params[:display].presence || session[:display].presence || Hash.new{ |hash, key| hash[key] = "true" }
+      session[:display] = params[:display] unless params[:display].blank?
+    end
 
     # 初期条件設定
     @testcases = Testcase.where( project_id: session[:project_id] ).includes( :user ).includes( :have_functions => :function )

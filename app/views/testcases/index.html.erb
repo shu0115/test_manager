@@ -85,6 +85,7 @@
 <%# ---------- 表示項目選択フォーム ---------- %>
 <%= form_tag( action: "index", order: @order, search: @search, set_filter: @set_filter ) do %>
 	<%= submit_tag "表示", :disable_with => "表示" %>
+	<%= submit_tag "リセット", :disable_with => "リセット" %>
   
   <%= check_box_tag "display[title]", true, @display[:title] -%><%= label_tag "display[title]", t("testcase.title") %>
   <%= check_box_tag "display[operation_user_id]", true, @display[:operation_user_id] -%><%= label_tag "display[operation_user_id]", t("testcase.operation_user") %>
