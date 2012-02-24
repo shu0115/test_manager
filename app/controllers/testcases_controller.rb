@@ -1,12 +1,13 @@
 # coding: utf-8
 class TestcasesController < ApplicationController
   
-  PER_PAGE = 50
-  
   #-------#
   # index #
   #-------#
   def index
+    # 表示項目設定
+    @display = params[:display].presence || Hash.new{ |hash, key| hash[key] = "true" }
+
     # 初期条件設定
     @testcases = Testcase.where( project_id: session[:project_id] ).includes( :user ).includes( :have_functions => :function )
 
@@ -49,6 +50,7 @@ class TestcasesController < ApplicationController
     @order = params[:order]
     @search = params[:search]
     @set_filter = params[:set_filter]
+    @display = params[:display]
     
     @testcase = Testcase.where( id: params[:id], project_id: session[:project_id] ).includes( :user ).includes( :have_functions => :function ).first
     @project = Project.where( id: session[:project_id] ).includes( :functions ).first
@@ -65,6 +67,7 @@ class TestcasesController < ApplicationController
     @order = params[:order]
     @search = params[:search]
     @set_filter = params[:set_filter]
+    @display = params[:display]
     
     @testcase = Testcase.new
     @project = Project.where( id: session[:project_id] ).includes( :functions ).first
@@ -78,6 +81,7 @@ class TestcasesController < ApplicationController
     @order = params[:order]
     @search = params[:search]
     @set_filter = params[:set_filter]
+    @display = params[:display]
     
     @testcase = Testcase.where( id: params[:id], project_id: session[:project_id] ).includes( :user ).includes( :have_functions => :function ).first
     @project = Project.where( id: session[:project_id] ).includes( :functions ).first
@@ -109,7 +113,7 @@ class TestcasesController < ApplicationController
         HaveFunction.create( testcase_id: @testcase.id, function_id: value, level: key )
       }
     
-      redirect_to( { action: "index", order: params[:order], search: params[:search], set_filter: params[:set_filter] }, notice: 'テストケースの作成が完了しました。' )
+      redirect_to( { action: "index", order: params[:order], search: params[:search], set_filter: params[:set_filter], display: params[:display] }, notice: 'テストケースの作成が完了しました。' )
     else
       @order = params[:order]
       @search = params[:search]
@@ -132,7 +136,7 @@ class TestcasesController < ApplicationController
         have_function.update_attributes( function_id: function_level[have_function.level.to_s] )
       }
       
-      redirect_to( { action: "index", order: params[:order], search: params[:search], set_filter: params[:set_filter] }, notice: "更新が完了しました。" )
+      redirect_to( { action: "index", order: params[:order], search: params[:search], set_filter: params[:set_filter], display: params[:display] }, notice: "更新が完了しました。" )
     else
       @order = params[:order]
       @search = params[:search]
@@ -153,7 +157,7 @@ class TestcasesController < ApplicationController
       msg = "削除に失敗しました。"
     end
     
-    redirect_to( { action: "index", order: params[:order], search: params[:search], set_filter: params[:set_filter] }, notice: msg )
+    redirect_to( { action: "index", order: params[:order], search: params[:search], set_filter: params[:set_filter], display: params[:display] }, notice: msg )
   end
 
 end

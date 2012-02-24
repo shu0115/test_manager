@@ -104,6 +104,6 @@
   <%= @testcase.note %>
 </p>
 
-<%= link_to t("edit"), { action: 'edit', id: @testcase.id, order: @order, search: @search, set_filter: @set_filter } %>
-　<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter %><br />
+<%= link_to t("edit"), { action: 'edit', id: @testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display } %>
+　<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter, display: @display %><br />
 <br />

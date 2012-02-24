@@ -16,6 +16,8 @@ ja:
   
   # ユーザ
   user:
+    title: ユーザ
+    list: ユーザ一覧
     new: 新規登録
     entry: 登録
     login: ログイン
@@ -23,6 +25,7 @@ ja:
     login_id: ログインID(メールアドレス)
     password: パスワード
     password_confirmation: パスワード確認
+    created_at: 参加日時
   
   # テストケース
   testcase:

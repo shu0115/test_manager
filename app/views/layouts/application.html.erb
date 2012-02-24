@@ -11,6 +11,7 @@
   <% unless session[:user_id].blank? %>
     <%= link_to t("testcase.title"), { controller: 'testcases' } %>
      | <%= link_to t("function.title"), { controller: 'functions' } %>
+     | <%= link_to t("user.title"), { controller: 'users' } %>
      || <%= link_to t("logout"), { controller: 'top', action: "logout" } %>
     <br />
   <% end %>

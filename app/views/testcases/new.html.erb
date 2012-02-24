@@ -1,7 +1,7 @@
 
 <h1><%= "#{t('testcase.title')} #{t('new')}" %></h1>
 
-<%= form_for( :testcase, url: { :action => 'create', order: @order, search: @search, set_filter: @set_filter } ) do |f| %>
+<%= form_for( :testcase, url: { :action => 'create', order: @order, search: @search, set_filter: @set_filter, display: @display } ) do |f| %>
   <% if @testcase.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@testcase.errors.count, "error") %></h2>
@@ -127,6 +127,6 @@
 
 <br />
 
-<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter %><br />
+<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter, display: @display %><br />
 
 <br />
