@@ -26,12 +26,12 @@
 
 <p>
   <b><%= t("testcase.operation") %>:</b><br />
-  <%= @testcase.operation %>
+  <%=raw Testcase.to_br( @testcase.operation ) %>
 </p>
 
 <p>
   <b><%= t("testcase.result") %>:</b><br />
-  <%= @testcase.result %>
+  <%=raw Testcase.to_br( @testcase.result ) %>
 </p>
 
 <p>
@@ -101,7 +101,7 @@
 
 <p>
   <b><%= t("testcase.note") %>:</b><br />
-  <%= @testcase.note %>
+  <%=raw Testcase.to_br( @testcase.note ) %>
 </p>
 
 <%= link_to t("edit"), { action: 'edit', id: @testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display } %>

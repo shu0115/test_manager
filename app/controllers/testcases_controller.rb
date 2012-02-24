@@ -100,6 +100,7 @@ class TestcasesController < ApplicationController
   # create #
   #--------#
   def create
+    print "[ params ] : " ; p params ;
     @project = Project.where( id: session[:project_id] ).includes( :functions ).first
     @function_level = params[:function_level].presence || Hash.new
       

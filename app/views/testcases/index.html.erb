@@ -84,7 +84,7 @@
 
 <%# ---------- 表示項目選択フォーム ---------- %>
 <%= form_tag( action: "index", order: @order, search: @search, set_filter: @set_filter ) do %>
-	<%= submit_tag "表示", :disable_with => "表示" %>
+	<%= submit_tag "　表示　", :disable_with => "　表示　" %>
 	<%= submit_tag "リセット", :disable_with => "リセット" %>
   
   <%= check_box_tag "display[title]", true, @display[:title] -%><%= label_tag "display[title]", t("testcase.title") %>
@@ -206,7 +206,7 @@
     
     <%# タイトル %>
     <% if @display[:title] == "true" %>
-    <td><%= testcase.title %></td>
+    <td style="white-space: nowrap;"><%= testcase.title %></td>
     <% end %>
     
     <%# 実施者 %>
@@ -232,12 +232,12 @@
     
     <%# 操作 %>
     <% if @display[:operation] == "true" %>
-    <td><%= testcase.operation %></td>
+    <td style="white-space: nowrap;"><%=raw Testcase.to_br( testcase.operation ) %></td>
     <% end %>
     
     <%# 結果 %>
     <% if @display[:result] == "true" %>
-    <td><%= testcase.result %></td>
+    <td style="white-space: nowrap;"><%=raw Testcase.to_br( testcase.result ) %></td>
     <% end %>
     
     <%# 種別 %>
@@ -286,7 +286,7 @@
     
     <%# 備考 %>
     <% if @display[:note] == "true" %>
-    <td><%= testcase.note %></td>
+    <td style="white-space: nowrap;"><%=raw Testcase.to_br( testcase.note ) %></td>
     <% end %>
     
     <td style="white-space: nowrap;"><%= link_to t("show"), { action: 'show', id: testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display } %></td>

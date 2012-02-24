@@ -140,4 +140,11 @@ class Testcase < ActiveRecord::Base
     return order_mark
   end
 
+  #------------#
+  # self.to_br #
+  #------------#
+  def self.to_br( target )
+    return target.gsub("\r\n", "<br />")
+  end
+  
 end
