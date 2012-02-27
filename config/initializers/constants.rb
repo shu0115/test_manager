@@ -26,7 +26,7 @@ BROWSER = [ "IE", "Firefox", "Safari", "Chrome", "Opera" ]
 CATEGORY = [ "正常系", "準正常系", "異常系", "バグ", "データ不備", "仕様漏れ", "設定漏れ", "未実装", "気付いた点", "要望", "質問" ]
 JUDGE = [ "OK", "NG" ]
 
-SEARCH_TRAGET_LIST = [ "title", "page", "operation", "result", "ticket_no", "note" ]
+SEARCH_TRAGET_LIST = [ "id", "title", "page", "operation", "result", "ticket_no", "note" ]
 SEARCH_DATE_LIST = [ "operation_at", "check_at" ]
 
 PER_PAGE = 5

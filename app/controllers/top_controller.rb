@@ -28,13 +28,16 @@ class TopController < ApplicationController
   #-----#
   # new #
   #-----#
+=begin
   def new
     @user = User.new
   end
+=end
   
   #-------#
   # entry #
   #-------#
+=begin
   def entry
     @user = User.new( params[:user] )
     @user.name = "#{@user.last_name} #{@user.first_name}"
@@ -70,6 +73,7 @@ class TopController < ApplicationController
       render action: "new" and return
     end
   end
+=end
   
   #--------#
   # logout #

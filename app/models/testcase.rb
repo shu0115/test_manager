@@ -105,6 +105,7 @@ class Testcase < ActiveRecord::Base
   #-----------------------#
   def self.set_default_sort( order )
     order_sort = Hash.new
+    order_sort[:id] = "ASC"
     order_sort[:title] = "ASC"
     order_sort[:status] = "ASC"
     order_sort[:operation_user_id] = "ASC"

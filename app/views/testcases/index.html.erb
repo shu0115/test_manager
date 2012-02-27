@@ -113,6 +113,9 @@
 <%# ---------- テストケース一覧 ---------- %>
 <table>
   <tr>
+    <%# ID %>
+    <th style="white-space: nowrap;"><%= link_to @order[:mark][:id].to_s + t("testcase.id"), { action: 'index', order: { key: "id", sort: @order[:item][:id] }, search: @search, set_filter: @set_filter, display: @display } %></th>
+    
     <%# 機能階層 %>
     <% 1.upto(@project.function_level){ |level| %>
       <th><%= t("testcase_function_level_#{level}") %></th>
@@ -197,6 +200,9 @@
 
 <% @testcases.each do |testcase| %>
   <tr>
+    <%# ID %>
+    <td style="white-space: nowrap;"><%= testcase.id %></td>
+    
     <%# 機能階層(テストケースごと保有機能階層ハッシュ生成) %>
     <% have_function = Hash.new %>
     <% testcase.have_functions.sort{ |h1, h2| h1.level <=> h2.level }.each{ |f| have_function[f.level] = f.function.try(:name) } %>

@@ -30,6 +30,7 @@ ja:
   
   # テストケース
   testcase:
+    id: ID
     title: テストケース
 #    new: 新規作成
 #    edit: 編集
