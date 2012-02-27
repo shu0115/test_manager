@@ -4,3 +4,14 @@
 
 {<img src="https://secure.travis-ci.org/shu0115/test_list.png" />}[http://travis-ci.org/shu0115/test_list]
 
+== OmniAuth Setting
+
+config/initializers/omniauth_setting.rb
+
+  # GitHub
+  GITHUB_KEY = "GitHub Client ID"
+  GITHUB_SECRET = "GitHub Client Secret"
+
+  # Twitter
+  #TWITTER_KEY = "Twitter Consumer key"
+  #TWITTER_SECRET = "Twitter Consumer secret"
