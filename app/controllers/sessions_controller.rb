@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
   # failure #
   #---------#
   def failure
-    render :text => "<span style='color: red;'>Auth Failure</span>"
+    render text: "<span style='color: red;'>Auth Failure：#{params[:message]}</span>"
   end
 
 end

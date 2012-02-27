@@ -8,4 +8,4 @@ UNICORN_CONFIG_PATH = "#{File.expand_path('../../config', __FILE__)}/unicorn.rb"
 
 system( "kill -KILL -s QUIT `cat #{PID_PATH}`" )
 system( "bundle exec unicorn_rails -c #{UNICORN_CONFIG_PATH} -E production -D" )
-system( "ps aux | grep unicorn" )
+system( "ps aux | grep unicorn_rails" )
