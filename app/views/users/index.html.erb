@@ -3,14 +3,18 @@
 
 <table>
   <tr>
+    <th><%= t("user.display_name") %></th>
     <th><%= t("user.name") %></th>
     <th><%= t("user.created_at") %></th>
+    <th></th>
   </tr>
 
 <% @users.each{ |user| %>
   <tr>
+    <td><%= user.display_name %></td>
     <td><%= user.name %></td>
     <td><%= user.created_at.strftime("%Y/%m/%d %H:%M") unless user.created_at.blank? %></td>
+    <td><%= link_to t("edit"), action: "edit", id: user.id if session[:user_id] == user.id %></td>
   </tr>
 <% } %>
 </table>

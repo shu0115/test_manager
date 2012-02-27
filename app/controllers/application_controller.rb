@@ -20,6 +20,15 @@ class ApplicationController < ActionController::Base
     request.session_options[:expire_after] = 2.weeks
   end
   
+  #--------------#
+  # current_user #
+  #--------------#
+  def current_user
+    @current_user ||= User.where( id: session[:user_id] ).first
+  end
+  
+  helper_method :current_user
+
   #-----------#
   # authorize #
   #-----------#
@@ -30,7 +39,7 @@ class ApplicationController < ActionController::Base
       unless session[:user_id].blank?
         redirect_to :controller => "testcases", :action => "index" and return
       end
-    elsif params[:controller] != "top"
+    elsif params[:controller] != "top" and params[:controller] != "sessions"
       # トップページ以外で未ログインであればトップヘリダイレクト
       if session[:user_id].blank?
         redirect_to :root and return

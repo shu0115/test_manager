@@ -26,6 +26,6 @@
   
   <%# 登録／更新ボタン %>
   <div class="actions">
-    <%= f.submit t("function.#{params[:to_action]}") %>
+    <%= f.submit t("function.#{params[:to_action]}"), disable_with: t("function.#{params[:to_action]}") %>
   </div>
 <% end %>

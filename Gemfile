@@ -8,6 +8,7 @@ gem 'rails', '3.2.1'
 
 gem 'sqlite3'
 
+# Production
 group :production do
   gem 'mysql2'
   gem 'unicorn'
@@ -45,3 +46,6 @@ gem 'jquery-rails'
 
 # Pagination
 gem 'kaminari'
+
+# OmniAuth
+gem 'omniauth-github'

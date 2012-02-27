@@ -1,5 +1,11 @@
 <h1>Top#index</h1>
 
+<%= link_to t("user.login"), "/auth/#{DEFAULT_PROVIDER}" %><br />
+
+<br />
+
+
+<% if false %>
 <%= link_to t("user.new"), { action: 'new' } %><br />
 
 <br />
@@ -21,3 +27,4 @@
 <% end %>
 
 <br />
+<% end %>

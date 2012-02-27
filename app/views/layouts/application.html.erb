@@ -12,7 +12,8 @@
     <%= link_to t("testcase.title"), { controller: 'testcases' } %>
      | <%= link_to t("function.title"), { controller: 'functions' } %>
      | <%= link_to t("user.title"), { controller: 'users' } %>
-     || <%= link_to t("logout"), { controller: 'top', action: "logout" } %>
+     || <%= link_to t("logout"), logout_path %>
+     || <%= session[:user_name] %>
     <br />
   <% end %>
   

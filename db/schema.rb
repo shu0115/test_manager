@@ -62,11 +62,14 @@ ActiveRecord::Schema.define(:version => 20120220022416) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "login_id"
+    t.string   "display_name"
+    t.string   "provider"
+    t.string   "uid"
     t.string   "name"
-    t.string   "password"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "screen_name"
+    t.string   "image"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
 end

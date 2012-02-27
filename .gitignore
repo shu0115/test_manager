@@ -15,3 +15,6 @@
 /tmp
 
 .DS_Store
+
+# OmniAuth
+config/initializers/omniauth_setting.rb
