@@ -11,6 +11,7 @@ class TopController < ApplicationController
   #-------#
   # login #
   #-------#
+=begin
   def login
     user = User.new( params[:user] )
     login_user = User.where( login_id: user.login_id, password: user.password ).first
@@ -22,6 +23,7 @@ class TopController < ApplicationController
       redirect_to( { action: "index" }, alert: '該当するユーザが存在しません。' ) and return
     end
   end
+=end
   
   #-----#
   # new #
@@ -72,11 +74,13 @@ class TopController < ApplicationController
   #--------#
   # logout #
   #--------#
+=begin
   def logout
     session[:user_id] = nil
     session[:project_id] = nil
     
     redirect_to( { action: "index" } ) and return
   end
+=end
 
 end
