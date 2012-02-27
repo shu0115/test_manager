@@ -37,7 +37,7 @@
     <%# 実施者 %>
     <tr>
       <td><%= t("testcase.operation_user") %>：</td>
-      <td><%= select_tag( "set_filter[operation_user_id]", options_from_collection_for_select( @user_names, :id, :name, @set_filter[:operation_user_id] ), { prompt: "-" } ) %></td>
+      <td><%= select_tag( "set_filter[operation_user_id]", options_from_collection_for_select( @user_names, :id, :display_name, @set_filter[:operation_user_id] ), { prompt: "-" } ) %></td>
     </tr>
     
     <%# 種別 %>
@@ -67,7 +67,7 @@
     <%# 対応者 %>
     <tr>
       <td><%= t("testcase.check_user") %>：</td>
-      <td><%= select_tag( "set_filter[check_user_id]", options_from_collection_for_select( @user_names, :id, :name, @set_filter[:check_user_id] ), { prompt: "-" } ) %>
+      <td><%= select_tag( "set_filter[check_user_id]", options_from_collection_for_select( @user_names, :id, :display_name, @set_filter[:check_user_id] ), { prompt: "-" } ) %>
     </tr>
   </table>
   </div>

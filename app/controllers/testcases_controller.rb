@@ -37,7 +37,8 @@ class TestcasesController < ApplicationController
     functions.each{ |f| @function_hash[f.id] = f.name }
     
     # 名前配列取得
-    @user_names = User.uniq.order( "name ASC" ).select( "id, name" )
+#    @user_names = User.uniq.order( "name ASC" ).select( "id, name" )
+    @user_names = User.uniq.order( "display_name ASC" ).select( "id, display_name" )
 
     # プロジェクト取得
     @project = Project.where( id: session[:project_id] ).first
