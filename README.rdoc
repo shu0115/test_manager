@@ -1,4 +1,4 @@
-= (Test List)
+= TestManager
 
 テスト管理ツール
 
