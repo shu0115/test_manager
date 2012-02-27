@@ -5,8 +5,8 @@ if Rails.env.production?
   #----------------#
   # Production環境 #
   #----------------#
-  DEFAULT_PROVIDER = "github"
-#  DEFAULT_PROVIDER = "twitter"
+#  DEFAULT_PROVIDER = "github"
+  DEFAULT_PROVIDER = "twitter"
 else
   #--------------------#
   # Production環境以外 #
