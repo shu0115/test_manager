@@ -6,12 +6,14 @@ if Rails.env.production?
   # Production環境 #
   #----------------#
   DEFAULT_PROVIDER = "github"
+#  DEFAULT_PROVIDER = "twitter"
 else
   #--------------------#
   # Production環境以外 #
   #--------------------#
-  DEFAULT_PROVIDER = "developer"
+#  DEFAULT_PROVIDER = "developer"
 #  DEFAULT_PROVIDER = "github"
+  DEFAULT_PROVIDER = "twitter"
 end
 
 # 定数

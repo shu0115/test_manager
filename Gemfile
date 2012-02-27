@@ -49,3 +49,4 @@ gem 'kaminari'
 
 # OmniAuth
 gem 'omniauth-github'
+gem 'omniauth-twitter'
