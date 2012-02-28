@@ -47,7 +47,8 @@ ja:
     check_user: 対応者
     operation_at: 実施日
     check_at: 対応日
-    created_at: 日付
+#    created_at: 日付
+    created_at: 作成日
     operation_check: 実施チェック
     ticket_no: チケット番号
     spec_flag: specフラグ

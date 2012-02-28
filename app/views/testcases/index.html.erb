@@ -69,6 +69,12 @@
       <td><%= t("testcase.check_user") %>：</td>
       <td><%= select_tag( "set_filter[check_user_id]", options_from_collection_for_select( @user_names, :id, :display_name, @set_filter[:check_user_id] ), { prompt: "-" } ) %>
     </tr>
+    
+    <%# 作成者 %>
+    <tr>
+      <td><%= t("testcase.create_user") %>：</td>
+      <td><%= select_tag( "set_filter[user_id]", options_from_collection_for_select( @user_names, :id, :display_name, @set_filter[:user_id] ), { prompt: "-" } ) %>
+    </tr>
   </table>
   </div>
 
@@ -100,6 +106,8 @@
   <%= check_box_tag "display[check_at]", true, @display[:check_at] -%><%= label_tag "display[check_at]", t("testcase.check_at") %>
   <%= check_box_tag "display[check_user_id]", true, @display[:check_user_id] -%><%= label_tag "display[check_user_id]", t("testcase.check_user") %>
   <%= check_box_tag "display[note]", true, @display[:note] -%><%= label_tag "display[note]", t("testcase.note") %>
+  <%= check_box_tag "display[created_at]", true, @display[:created_at] -%><%= label_tag "display[created_at]", t("testcase.created_at") %>
+  <%= check_box_tag "display[user_id]", true, @display[:user_id] -%><%= label_tag "display[user_id]", t("testcase.create_user") %>
 <% end %>
 
 <%# ページング %>
@@ -189,6 +197,16 @@
     <%# 備考 %>
     <% if @display[:note] == "true" %>
     <th style="width: 200px;"><%= link_to @order[:mark][:note].to_s + t("testcase.note"), { action: 'index', order: { key: "note", sort: @order[:item][:note] }, search: @search, set_filter: @set_filter, display: @display } %></th>
+    <% end %>
+    
+    <%# 作成日 %>
+    <% if @display[:created_at] == "true" %>
+    <th><%= link_to @order[:mark][:created_at].to_s + t("testcase.created_at"), { action: 'index', order: { key: "created_at", sort: @order[:item][:created_at] }, search: @search, set_filter: @set_filter, display: @display } %></th>
+    <% end %>
+    
+    <%# 作成者 %>
+    <% if @display[:user_id] == "true" %>
+    <th><%= link_to @order[:mark][:user_id].to_s + t("testcase.create_user"), { action: 'index', order: { key: "user_id", sort: @order[:item][:user_id] }, search: @search, set_filter: @set_filter, display: @display } %></th>
     <% end %>
     
     <% if @testcases.length > 0 %>
@@ -295,6 +313,16 @@
     <td style="white-space: nowrap;"><%=raw Testcase.to_br( testcase.note ) %></td>
     <% end %>
     
+    <%# 対応日 %>
+    <% if @display[:created_at] == "true" %>
+    <td><%= testcase.created_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.created_at.wday]})" unless testcase.created_at.blank? %></td>
+    <% end %>
+    
+    <%# 対応者 %>
+    <% if @display[:user_id] == "true" %>
+    <td style="white-space: nowrap;"><%= User.get_name( testcase.user_id ) %></td>
+    <% end %>
+
     <td style="white-space: nowrap;"><%= link_to t("show"), { action: 'show', id: testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display } %></td>
     <td style="white-space: nowrap;"><%= link_to t("edit"), { action: 'edit', id: testcase.id, to_action: "update", order: @order, search: @search, set_filter: @set_filter, display: @display } %></td>
     <td style="white-space: nowrap;"><%= link_to t("delete"), { action: 'delete', id: testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display }, onClick: "return confirm('「#{testcase.title}」を削除します。よろしいですか？');" %></td>
