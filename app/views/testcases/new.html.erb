@@ -1,6 +1,10 @@
 
 <h2><%= "#{t('testcase.title')} #{t('new')}" %></h2>
 
+<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter, display: @display %><br />
+
+<br />
+
 <%= form_for( :testcase, url: { :action => 'create', order: @order, search: @search, set_filter: @set_filter, display: @display } ) do |f| %>
   <% if @testcase.errors.any? %>
     <div id="error_explanation">

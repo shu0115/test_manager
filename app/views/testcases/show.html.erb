@@ -1,6 +1,11 @@
 
 <h2><%= "#{t('testcase.title')} #{t('show')}" %></h2>
 
+<%= link_to t("edit"), { action: 'edit', id: @testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display } %>
+　<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter, display: @display %><br />
+
+<br />
+
 <table>
   <tr>
     <th>項目名</th>
