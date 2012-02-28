@@ -85,6 +85,7 @@
 
 <br />
 
+<%# リンク %>
 <%= link_to t("new"), action: 'new', to_action: "create", order: @order, search: @search, set_filter: @set_filter, display: @display %><br />
 
 <br />
@@ -117,7 +118,13 @@
   <%= paginate @testcases -%>
 <% end %>
 
-<div style="text-align: right;"><%=raw page_entries_info @testcases %></div>
+<%# カウント数／ページング情報 %>
+<div style="text-align: right;">
+  <span style="color: blue;"><%= "OK:#{@judge_count_hash[:ok]}" %></span>
+  ／<span style="color: gray;"><%= "Pending:#{@judge_count_hash[:pending]}" %></span>
+  ／<span style="color: red;"><%= "NG:#{@judge_count_hash[:ng]}" %></span>
+  　<%=raw page_entries_info @testcases %>
+</div>
 
 <%# ---------- テストケース一覧 ---------- %>
 <table>

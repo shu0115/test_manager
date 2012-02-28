@@ -80,7 +80,6 @@ class Testcase < ActiveRecord::Base
   def self.set_order( args )
     order = Hash.new{ |hash, key| hash[key] = Hash.new }
     param_order = args[:order].presence || Hash.new
-#    order[:key] = param_order[:key].presence || "operation_at"
     order[:key] = param_order[:key].presence || "created_at"
     order[:sort] = param_order[:sort].presence || "DESC"
 
@@ -149,4 +148,16 @@ class Testcase < ActiveRecord::Base
     return target.gsub("\r\n", "<br />")
   end
   
+  #------------------#
+  # self.judge_count #
+  #------------------#
+  def self.judge_count( testcases )
+    count_hash = Hash.new
+    count_hash[:ok] = testcases.where( judge: "OK" ).count
+    count_hash[:pending] = testcases.where( judge: "Pending" ).count
+    count_hash[:ng] = testcases.where( judge: "NG" ).count
+    
+    return count_hash
+  end
+
 end

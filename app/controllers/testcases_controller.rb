@@ -28,6 +28,9 @@ class TestcasesController < ApplicationController
     @search = params[:search].presence || Hash.new
     @testcases = Testcase.set_search( testcases: @testcases, search: @search, set_order: set_order )
     
+    # 判定カウント集計
+    @judge_count_hash = Testcase.judge_count( @testcases )
+    
     # ページング
     @testcases = @testcases.page( params[:page] ).per( PER_PAGE )
 
