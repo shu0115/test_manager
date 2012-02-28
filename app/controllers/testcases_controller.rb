@@ -137,11 +137,13 @@ class TestcasesController < ApplicationController
     function_level = params[:function_level].presence || Hash.new
 
     if @testcase.update_attributes( params[:testcase] )
-      # 機能階層登録
-      @testcase.have_functions.each{ |have_function|
-        # 全階層更新
-        have_function.update_attributes( function_id: function_level[have_function.level.to_s] )
-      }
+      # 機能階層更新
+      unless function_level.blank?
+        @testcase.have_functions.each{ |have_function|
+          # 全階層更新
+          have_function.update_attributes( function_id: function_level[have_function.level.to_s] )
+        }
+      end
       
       redirect_to( { action: "index", order: params[:order], search: params[:search], set_filter: params[:set_filter], display: params[:display] }, notice: "更新が完了しました。" )
     else
