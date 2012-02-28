@@ -24,7 +24,7 @@ OS = [ "Mac OS X 10.6", "Mac OS X 10.6.8", "Mac OS X 10.7", "Win XP", "Win 7" ]
 BROWSER = [ "IE", "Firefox", "Safari", "Chrome", "Opera" ]
 #CATEGORY = [ "テスト", "バグ", "データ不備", "仕様漏れ", "設定漏れ", "未実装", "気付いた点", "要望", "質問" ]
 CATEGORY = [ "正常系", "準正常系", "異常系", "バグ", "データ不備", "仕様漏れ", "設定漏れ", "未実装", "気付いた点", "要望", "質問" ]
-JUDGE = [ "OK", "NG" ]
+JUDGE = [ "OK", "Pending", "NG" ]
 
 SEARCH_TRAGET_LIST = [ "id", "title", "page", "operation", "result", "ticket_no", "note" ]
 SEARCH_DATE_LIST = [ "operation_at", "check_at" ]
