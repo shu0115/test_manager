@@ -286,6 +286,7 @@
     <% if @display[:judge] == "true" %>
       <% if testcase.judge == "OK" then color = "blue" %>
       <% elsif testcase.judge == "NG" then color = "red" %>
+      <% elsif testcase.judge == "Pending" then color = "gray" %>
       <% end %>
       <td style="color: <%= color %>;"><%= testcase.judge %></td>
     <% end %>
