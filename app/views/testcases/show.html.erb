@@ -36,7 +36,7 @@
   <%# 実施日 %>
   <tr>
     <th><%= t("testcase.operation_at") %></th>  
-    <td><%= @testcase.check_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.check_at.wday]})" unless @testcase.check_at.blank? %></td>  
+    <td><%= @testcase.operation_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.operation_at.wday]})" unless @testcase.operation_at.blank? %></td>  
   </tr>
 
   <%# 操作 %>
