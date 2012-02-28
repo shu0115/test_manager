@@ -325,7 +325,7 @@
 
     <td style="white-space: nowrap;"><%= link_to t("show"), { action: 'show', id: testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display } %></td>
     <td style="white-space: nowrap;"><%= link_to t("edit"), { action: 'edit', id: testcase.id, to_action: "update", order: @order, search: @search, set_filter: @set_filter, display: @display } %></td>
-    <td style="white-space: nowrap;"><%= link_to t("delete"), { action: 'delete', id: testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display }, onClick: "return confirm('「#{testcase.title}」を削除します。よろしいですか？');" %></td>
+    <td style="white-space: nowrap;"><%= link_to t("delete"), { action: 'delete', id: testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display }, onClick: "return confirm('「#{testcase.title}」を削除します。よろしいですか？');" if testcase.user_id == session[:user_id] %></td>
   </tr>
 <% end %>
 </table>
