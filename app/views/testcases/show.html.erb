@@ -83,7 +83,7 @@
 
   <%# 対応者 %>
   <tr>
-    <th><%= t("testcase.check_user") %></th>  
+    <th><%= t("testcase.check_user") %></th>
     <td><%= User.get_name( @testcase.check_user_id ) %></td>  
   </tr>
 
@@ -101,8 +101,8 @@
 
   <%# 作成者 %>
   <tr>
-    <th><%= t("testcase.create_user") %></th>  
-    <td><%= @testcase.user.try(:name) %></td>  
+    <th><%= t("testcase.create_user") %></th>
+    <td><%= User.get_name( @testcase.user_id ) %></td>
   </tr>
 
   <%# 作成日 %>
