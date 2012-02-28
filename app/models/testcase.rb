@@ -80,7 +80,8 @@ class Testcase < ActiveRecord::Base
   def self.set_order( args )
     order = Hash.new{ |hash, key| hash[key] = Hash.new }
     param_order = args[:order].presence || Hash.new
-    order[:key] = param_order[:key].presence || "operation_at"
+#    order[:key] = param_order[:key].presence || "operation_at"
+    order[:key] = param_order[:key].presence || "created_at"
     order[:sort] = param_order[:sort].presence || "DESC"
 
     # ソート順設定
