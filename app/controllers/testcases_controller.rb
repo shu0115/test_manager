@@ -108,6 +108,7 @@ class TestcasesController < ApplicationController
     @testcase.project_id = session[:project_id]
     @testcase.user_id = session[:user_id]
     
+    # 実施チェック
     if @testcase.operation_check == "done"
       @testcase.operation_user_id = session[:user_id]
       @testcase.operation_at = Time.now
@@ -135,8 +136,16 @@ class TestcasesController < ApplicationController
   def update
     @testcase = Testcase.where( id: params[:id], project_id: session[:project_id] ).includes( :user ).includes( :have_functions => :function ).first
     function_level = params[:function_level].presence || Hash.new
+    update_testcase = params[:testcase].presence || Hash.new
+    
+    # 実施チェック
+    if update_testcase[:operation_check] == "done"
+      update_testcase[:operation_user_id] = session[:user_id]
+      update_testcase[:operation_at] = Time.now
+    end
 
-    if @testcase.update_attributes( params[:testcase] )
+#    if @testcase.update_attributes( params[:testcase] )
+    if @testcase.update_attributes( update_testcase )
       # 機能階層更新
       unless function_level.blank?
         @testcase.have_functions.each{ |have_function|

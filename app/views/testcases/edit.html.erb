@@ -58,6 +58,12 @@
     <%= f.text_area :result, rows: 10 %>
   </div>
 
+  <%# 実施チェック %>
+  <div class="field">
+    <%= f.check_box( :operation_check, { checked: false }, "done" ) %>
+    <%= f.label :operation_check, t("testcase.operation_check") %>
+  </div>
+
   <%# 種別 %>
   <div class="field">
     <%= f.label :category, t("testcase.category") %><br />
@@ -105,7 +111,7 @@
     <%= f.label :ticket_no, t("testcase.ticket_no") %><br />
     <%= f.text_field :ticket_no %>
   </div>
-  
+
   <%# 備考 %>
   <div class="field">
     <%= f.label :note, t("testcase.note") %><br />
