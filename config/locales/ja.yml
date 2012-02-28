@@ -1,5 +1,6 @@
 ja:
   # サイト内共通設定
+  title: TestManager
   list: 一覧
   new: 新規作成
   create: 作成

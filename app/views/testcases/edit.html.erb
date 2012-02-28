@@ -1,5 +1,5 @@
 
-<h1><%= "#{t('testcase.title')} #{t('edit')}" %></h1>
+<h2><%= "#{t('testcase.title')} #{t('edit')}" %></h2>
 
 <%= form_for( :testcase, url: { action: 'update', id: @testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display } ) do |f| %>
   <% if @testcase.errors.any? %>

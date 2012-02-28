@@ -1,108 +1,143 @@
 
-<p id="notice"><%= notice %></p>
+<h2><%= "#{t('testcase.title')} #{t('show')}" %></h2>
+
+<table>
+  <tr>
+    <th>項目名</th>
+    <th>内容</th>
+  </tr>
+
+  <%# ID %>
+  <tr>
+    <th><%= t("testcase.id") %></th>  
+    <td><%= @testcase.id %></td>  
+  </tr>
 
 <%# 機能階層 %>
 <% 1.upto(@project.function_level){ |level| %>
-<p>
-  <b><%= t("testcase_function_level_#{level}") %>:</b><br />
-  <%= @have_functions[level] %>
-</p>
+  <tr>
+    <th><%= t("testcase_function_level_#{level}") %></th>  
+    <td><%= @have_functions[level] %></td>  
+  </tr>
 <% } %>
 
-<p>
-  <b><%= t("testcase.title") %>:</b><br />
-  <%= @testcase.title %>
-</p>
+  <%# タイトル %>
+  <tr>
+    <th><%= t("testcase.title") %></th>  
+    <td><%= @testcase.title %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.created_at") %>:</b><br />
-  <%= @testcase.created_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.created_at.wday]})" unless @testcase.created_at.blank? %>
-</p>
+  <%# 実施者 %>
+  <tr>
+    <th><%= t("testcase.operation_user") %></th>  
+    <td><%= User.get_name( @testcase.operation_user_id ) %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.page") %>:</b><br />
-  <%= link_to @testcase.page, @testcase.page, target: "_blank" %>
-</p>
+  <%# 実施日 %>
+  <tr>
+    <th><%= t("testcase.operation_at") %></th>  
+    <td><%= @testcase.check_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.check_at.wday]})" unless @testcase.check_at.blank? %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.operation") %>:</b><br />
-  <%=raw Testcase.to_br( @testcase.operation ) %>
-</p>
+  <%# 操作 %>
+  <tr>
+    <th><%= t("testcase.operation") %></th>  
+    <td><%=raw Testcase.to_br( @testcase.operation ) %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.result") %>:</b><br />
-  <%=raw Testcase.to_br( @testcase.result ) %>
-</p>
+  <%# 結果 %>
+  <tr>
+    <th><%= t("testcase.result") %></th>  
+    <td><%=raw Testcase.to_br( @testcase.result ) %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.status") %>:</b><br />
-  <%= @testcase.status %>
-</p>
+  <%# 種別 %>
+  <tr>
+    <th><%= t("testcase.category") %></th>  
+    <td><%= @testcase.category %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.judge") %>:</b><br />
-  <%= @testcase.judge %>
-</p>
+  <%# ステータス %>
+  <tr>
+    <th><%= t("testcase.status") %></th>  
+    <td><%= @testcase.status %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.category") %>:</b><br />
-  <%= @testcase.category %>
-</p>
+  <%# 判定 %>
+  <tr>
+    <th><%= t("testcase.judge") %></th>  
+    <td><%= @testcase.judge %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.os") %>:</b><br />
-  <%= @testcase.os %>
-</p>
+  <%# チケット番号 %>
+  <tr>
+    <th><%= t("testcase.ticket_no") %></th>  
+    <td><%= link_to @testcase.ticket_no, "http://redmine.pixta.jp/issues/#{@testcase.ticket_no}", target: "_blank" unless @testcase.ticket_no.blank? %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.browser") %>:</b><br />
-  <%= @testcase.browser %>
-</p>
+  <%# specフラグ %>
+  <tr>
+    <th><%= t("testcase.spec_flag") %></th>  
+    <td><%= @testcase.spec_flag %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.spec_flag") %>:</b><br />
-  <%= @testcase.spec_flag %>
-</p>
+  <%# 対応者 %>
+  <tr>
+    <th><%= t("testcase.check_user") %></th>  
+    <td><%= User.get_name( @testcase.check_user_id ) %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.test_user_id") %>:</b><br />
-  <%= @testcase.test_user_id %>
-</p>
+  <%# 対応日 %>
+  <tr>
+    <th><%= t("testcase.check_at") %></th>  
+    <td><%= @testcase.check_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.check_at.wday]})" unless @testcase.check_at.blank? %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.ticket_no") %>:</b><br />
-  <%= link_to @testcase.ticket_no, "http://redmine.pixta.jp/issues/#{@testcase.ticket_no}", target: "_blank" unless @testcase.ticket_no.blank? %>
-</p>
+  <%# 備考 %>
+  <tr>
+    <th><%= t("testcase.note") %></th>  
+    <td><%=raw Testcase.to_br( @testcase.note ) %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.operation_at") %>:</b><br />
-  <%= @testcase.operation_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.operation_at.wday]})" unless @testcase.operation_at.blank? %>
-</p>
+  <%# 作成者 %>
+  <tr>
+    <th><%= t("testcase.create_user") %></th>  
+    <td><%= @testcase.user.try(:name) %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.check_at") %>:</b><br />
-  <%= @testcase.check_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.check_at.wday]})" unless @testcase.check_at.blank? %>
-</p>
+  <%# 作成日 %>
+  <tr>
+    <th><%= t("testcase.created_at") %></th>  
+    <td><%= @testcase.created_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.created_at.wday]})" unless @testcase.created_at.blank? %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.create_user") %>:</b><br />
-  <%= @testcase.user.try(:name) %>
-</p>
+  <%# ページURL %>
+  <tr>
+    <th><%= t("testcase.page") %></th>  
+    <td><%= link_to @testcase.page, @testcase.page, target: "_blank" %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.operation_user") %>:</b><br />
-  <%= User.get_name( @testcase.operation_user_id ) %>
-</p>
+  <%# OS %>
+  <tr>
+    <th><%= t("testcase.os") %></th>  
+    <td><%= @testcase.os %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.check_user") %>:</b><br />
-  <%= User.get_name( @testcase.check_user_id ) %>
-</p>
+  <%# ブラウザ %>
+  <tr>
+    <th><%= t("testcase.browser") %></th>  
+    <td><%= @testcase.browser %></td>  
+  </tr>
 
-<p>
-  <b><%= t("testcase.note") %>:</b><br />
-  <%=raw Testcase.to_br( @testcase.note ) %>
-</p>
+  <%# テストログインユーザID %>
+  <tr>
+    <th><%= t("testcase.test_user_id") %></th>  
+    <td><%= @testcase.test_user_id %></td>  
+  </tr>
+
+</table>
+
+<br />
 
 <%= link_to t("edit"), { action: 'edit', id: @testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display } %>
 　<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter, display: @display %><br />

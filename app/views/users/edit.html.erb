@@ -1,5 +1,5 @@
 
-<h1><%= "#{t('user.title')} #{t('edit')}" %></h1>
+<h2><%= "#{t('user.title')} #{t('edit')}" %></h2>
 
 <%= form_for( :user, url: { action: "update", id: params[:id] } ) do |f| %>
   <% if @user.errors.any? %>

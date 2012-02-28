@@ -145,7 +145,8 @@ class TestcasesController < ApplicationController
         }
       end
       
-      redirect_to( { action: "index", order: params[:order], search: params[:search], set_filter: params[:set_filter], display: params[:display] }, notice: "更新が完了しました。" )
+#      redirect_to( { action: "index", order: params[:order], search: params[:search], set_filter: params[:set_filter], display: params[:display] }, notice: "更新が完了しました。" )
+      redirect_to( { action: "show", id: @testcase.id, order: params[:order], search: params[:search], set_filter: params[:set_filter], display: params[:display] }, notice: "更新が完了しました。" )
     else
       @order = params[:order]
       @search = params[:search]

@@ -1,4 +1,5 @@
-<h1><%= t("testcase.list") %></h1>
+
+<h2><%= t("testcase.list") %></h2>
 
 <%# ---------- 検索フォーム ---------- %>
 <%= form_tag( action: "index", order: @order, set_filter: @set_filter, display: @display ) do %>
@@ -313,12 +314,12 @@
     <td style="white-space: nowrap;"><%=raw Testcase.to_br( testcase.note ) %></td>
     <% end %>
     
-    <%# 対応者 %>
+    <%# 作成者 %>
     <% if @display[:user_id] == "true" %>
     <td style="white-space: nowrap;"><%= User.get_name( testcase.user_id ) %></td>
     <% end %>
     
-    <%# 対応日 %>
+    <%# 作成日 %>
     <% if @display[:created_at] == "true" %>
     <td><%= testcase.created_at.strftime("%Y/%m/%d") + "(#{WDAYS[testcase.created_at.wday]})" unless testcase.created_at.blank? %></td>
     <% end %>
