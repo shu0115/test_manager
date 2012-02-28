@@ -29,4 +29,4 @@ JUDGE = [ "OK", "NG" ]
 SEARCH_TRAGET_LIST = [ "id", "title", "page", "operation", "result", "ticket_no", "note" ]
 SEARCH_DATE_LIST = [ "operation_at", "check_at" ]
 
-PER_PAGE = 5
+PER_PAGE = 50
