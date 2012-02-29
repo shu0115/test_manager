@@ -8,6 +8,17 @@ class Testcase < ActiveRecord::Base
 
   attr_accessor :operation_check
   
+  #----------------------#
+  # operation_check_done #
+  #----------------------#
+  def operation_check_done?
+    if !self.operation_user_id.blank? and !self.operation_at.blank?
+      return true
+    else
+      return false
+    end
+  end
+  
   private
   
   #-----------------#
