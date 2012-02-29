@@ -293,7 +293,15 @@
     
     <%# チケット番号 %>
     <% if @display[:ticket_no] == "true" %>
-    <td><%= link_to testcase.ticket_no, "http://redmine.pixta.jp/issues/#{testcase.ticket_no}", target: "_blank" unless testcase.ticket_no.blank? %></td>
+    <td>
+      <%# カンマ区切り対応 2012/02/29 %>
+      <% unless testcase.ticket_no.blank? %>
+        <% tickets = testcase.ticket_no.split(",")  %>
+        <% tickets.each_with_index{ |ticket_no, index| %>
+          <%= link_to ticket_no, "http://redmine.pixta.jp/issues/#{ticket_no}", target: "_blank" %><%= "," unless (index+1) == tickets.length %>
+        <% } %>
+      <% end %>
+    </td>
     <% end %>
     
     <%# specフラグ %>
