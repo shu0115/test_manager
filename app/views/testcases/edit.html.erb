@@ -43,13 +43,13 @@
     <%= f.label :title, t("testcase.title") %><br />
     <%= f.text_field :title, size: 50 %>
   </div>
-  
-  <%# ページURL %>
+
+  <%# チケット番号 %>
   <div class="field">
-    <%= f.label :page, t("testcase.page") %><br />
-    <%= f.text_field :page, size: 50 %>
+    <%= f.label :ticket_no, t("testcase.ticket_no") %><br />
+    <%= f.text_field :ticket_no %>
   </div>
-  
+
   <%# 操作 %>
   <div class="field">
     <%= f.label :operation, t("testcase.operation") %><br />
@@ -109,11 +109,11 @@
     <%= f.label :test_user_id, t("testcase.test_user_id") %><br />
     <%= f.text_field :test_user_id %>
   </div>
-
-  <%# チケット番号 %>
+  
+  <%# ページURL %>
   <div class="field">
-    <%= f.label :ticket_no, t("testcase.ticket_no") %><br />
-    <%= f.text_field :ticket_no %>
+    <%= f.label :page, t("testcase.page") %><br />
+    <%= f.text_field :page, size: 50 %>
   </div>
 
   <%# 備考 %>
