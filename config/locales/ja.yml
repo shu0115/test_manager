@@ -51,6 +51,7 @@ ja:
 #    created_at: 日付
     created_at: 作成日
     operation_check: 実施チェック
+    amend_check: 対応チェック
     ticket_no: チケット番号
     spec_flag: specフラグ
     function: 機能

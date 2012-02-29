@@ -40,7 +40,6 @@ class TestcasesController < ApplicationController
     functions.each{ |f| @function_hash[f.id] = f.name }
     
     # 名前配列取得
-#    @user_names = User.uniq.order( "name ASC" ).select( "id, name" )
     @user_names = User.uniq.order( "display_name ASC" ).select( "id, display_name" )
 
     # プロジェクト取得
@@ -145,9 +144,20 @@ class TestcasesController < ApplicationController
     if update_testcase[:operation_check] == "done"
       update_testcase[:operation_user_id] = session[:user_id]
       update_testcase[:operation_at] = Time.now
+    elsif update_testcase[:operation_check] == "revoke"
+      update_testcase[:operation_user_id] = nil
+      update_testcase[:operation_at] = nil
+    end
+    
+    # 対応チェック
+    if update_testcase[:amend_check] == "done"
+      update_testcase[:check_user_id] = session[:user_id]
+      update_testcase[:check_at] = Time.now
+    elsif update_testcase[:amend_check] == "revoke"
+      update_testcase[:check_user_id] = nil
+      update_testcase[:check_at] = nil
     end
 
-#    if @testcase.update_attributes( params[:testcase] )
     if @testcase.update_attributes( update_testcase )
       # 機能階層更新
       unless function_level.blank?

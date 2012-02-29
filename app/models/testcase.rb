@@ -7,12 +7,26 @@ class Testcase < ActiveRecord::Base
 #  validates :title, :presence => true
 
   attr_accessor :operation_check
+  attr_accessor :amend_check
   
   #----------------------#
   # operation_check_done #
   #----------------------#
+  # 実施有無チェック
   def operation_check_done?
     if !self.operation_user_id.blank? and !self.operation_at.blank?
+      return true
+    else
+      return false
+    end
+  end
+  
+  #------------------#
+  # amend_check_done #
+  #------------------#
+  # 対応有無チェック
+  def amend_check_done?
+    if !self.check_user_id.blank? and !self.check_at.blank?
       return true
     else
       return false

@@ -46,8 +46,16 @@
 
   <%# 実施チェック %>
   <div class="field">
-    <%= f.check_box( :operation_check, { checked: @testcase.operation_check_done? }, "done" ) %>
+    <%= f.check_box( :operation_check, { checked: @testcase.operation_check_done? }, "done", "revoke" ) %>
     <b><%= f.label :operation_check, t("testcase.operation_check") %></b>
+    　<%= User.get_name( @testcase.operation_user_id ) %><% unless @testcase.operation_at.blank? %>／<% end %><%= @testcase.operation_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.operation_at.wday]})" unless @testcase.operation_at.blank? %>
+  </div>
+
+  <%# 対応チェック %>
+  <div class="field">
+    <%= f.check_box( :amend_check, { checked: @testcase.amend_check_done? }, "done", "revoke" ) %>
+    <b><%= f.label :amend_check, t("testcase.amend_check") %></b>
+    　<%= User.get_name( @testcase.check_user_id ) %><% unless @testcase.check_at.blank? %>／<% end %><%= @testcase.check_at.strftime("%Y/%m/%d") + "(#{WDAYS[@testcase.check_at.wday]})" unless @testcase.check_at.blank? %>
   </div>
 
   <%# 操作 %>
