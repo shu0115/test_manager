@@ -34,4 +34,7 @@ TestList::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  config.logger = Logger.new( config.paths["log"].first, "daily" )
+  config.logger.level = Logger::DEBUG
 end
