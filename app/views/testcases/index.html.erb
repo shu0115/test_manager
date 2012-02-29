@@ -59,6 +59,12 @@
       <td><%= select_tag( "set_filter[judge]", options_for_select( JUDGE, selected: @set_filter[:judge] ), { prompt: "-" } ) %></td>
     </tr>
     
+    <%# チケット番号 %>
+    <tr>
+      <td><%= t("testcase.ticket_no") %>：</td>
+      <td><%= select_tag( "set_filter[ticket_no]", options_for_select( TICKET_NO, selected: @set_filter[:ticket_no] ), { prompt: "-" } ) %></td>
+    </tr>
+    
     <%# specフラグ %>
     <tr>
       <td><%= t("testcase.spec_flag") %>：</td>
