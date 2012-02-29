@@ -44,7 +44,7 @@ class Testcase < ActiveRecord::Base
           if value == "有り"
             testcases = testcases.where( "ticket_no IS NOT NULL AND ticket_no != ''" )
           elsif value == "無し"
-            testcases = testcases.where( "ticket_no IS NULL OR ticket_no == ''" )
+            testcases = testcases.where( "ticket_no IS NULL OR ticket_no = ''" )
           end
         else
           testcases = testcases.where( "#{key} = :#{key}", { key => value }.symbolize_keys )
