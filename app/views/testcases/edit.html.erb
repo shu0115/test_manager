@@ -1,8 +1,8 @@
 
 <h2><%= "#{t('testcase.title')} #{t('edit')}" %></h2>
 
-<%= link_to t("show"), action: "show", id: @testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display %>
-　<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter, display: @display %><br />
+<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter, display: @display %>
+ | <%= link_to t("show"), action: "show", id: @testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display %><br />
 <br />
 
 <%= form_for( :testcase, url: { action: 'update', id: @testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display } ) do |f| %>
@@ -129,6 +129,6 @@
 
 <br />
 
-<%= link_to t("show"), action: "show", id: @testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display %>
-　<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter, display: @display %><br />
+<%= link_to t("list"), action: 'index', order: @order, search: @search, set_filter: @set_filter, display: @display %>
+ | <%= link_to t("show"), action: "show", id: @testcase.id, order: @order, search: @search, set_filter: @set_filter, display: @display %><br />
 <br />
