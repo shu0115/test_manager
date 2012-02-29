@@ -44,10 +44,10 @@
     <%= f.text_field :title, size: 50 %>
   </div>
   
-  <%# チケット番号 %>
+  <%# 実施チェック %>
   <div class="field">
-    <%= f.label :ticket_no, t("testcase.ticket_no") %><br />
-    <%= f.text_field :ticket_no %>
+    <%= f.check_box( :operation_check, { checked: false }, "done" ) %>
+    <b><%= f.label :operation_check, t("testcase.operation_check") %></b>
   </div>
 
   <%# 操作 %>
@@ -62,10 +62,10 @@
     <%= f.text_area :result, rows: 10 %>
   </div>
 
-  <%# 実施チェック %>
+  <%# チケット番号 %>
   <div class="field">
-    <%= f.check_box( :operation_check, { checked: false }, "done" ) %>
-    <b><%= f.label :operation_check, t("testcase.operation_check") %></b>
+    <%= f.label :ticket_no, t("testcase.ticket_no") %><br />
+    <%= f.text_field :ticket_no %>
   </div>
 
   <%# 種別 %>
