@@ -92,15 +92,21 @@ class Testcase < ActiveRecord::Base
   def self.set_search( args )
     search = args[:search].presence || Hash.new
     set_order = args[:set_order]
-    
     testcases = args[:testcases]
+    condition = Array.new
     
-    if !search[:target].blank? and !search[:word].blank?
-      condition = [ "#{search[:target]} LIKE :#{search[:target]}", { search[:target] => "%#{search[:word]}%" }.symbolize_keys ]
-      testcases = testcases.where( condition ).order( set_order )
-    else
-      testcases = testcases.order( set_order )
+    if !search[:word].blank? and !search[:target].blank?
+      # 検索対象がidの場合
+      if search[:target] == "id"
+        ids = search[:word].split(",")
+        testcases = testcases.where( id: ids )
+      else
+        condition = [ "#{search[:target]} LIKE :#{search[:target]}", { search[:target] => "%#{search[:word]}%" }.symbolize_keys ]
+        testcases = testcases.where( condition )
+      end
     end
+
+    testcases = testcases.order( set_order )
     
     return testcases
   end
