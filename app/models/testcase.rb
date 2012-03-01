@@ -142,21 +142,23 @@ class Testcase < ActiveRecord::Base
   # self.set_default_sort #
   #-----------------------#
   def self.set_default_sort( order )
+    default_sort = "DESC"
+    
     order_sort = Hash.new
-    order_sort[:id] = "ASC"
-    order_sort[:title] = "ASC"
-    order_sort[:status] = "ASC"
-    order_sort[:operation_user_id] = "ASC"
-    order_sort[:operation_at] = "ASC"
-    order_sort[:page] = "ASC"
-    order_sort[:operation] = "ASC"
-    order_sort[:result] = "ASC"
-    order_sort[:status] = "ASC"
-    order_sort[:ticket_no] = "ASC"
-    order_sort[:spec_flag] = "ASC"
-    order_sort[:check_at] = "ASC"
-    order_sort[:check_user_id] = "ASC"
-    order_sort[:note] = "ASC"
+    order_sort[:id] = default_sort
+    order_sort[:title] = default_sort
+    order_sort[:status] = default_sort
+    order_sort[:operation_user_id] = default_sort
+    order_sort[:operation_at] = default_sort
+    order_sort[:page] = default_sort
+    order_sort[:operation] = default_sort
+    order_sort[:result] = default_sort
+    order_sort[:status] = default_sort
+    order_sort[:ticket_no] = default_sort
+    order_sort[:spec_flag] = default_sort
+    order_sort[:check_at] = default_sort
+    order_sort[:check_user_id] = default_sort
+    order_sort[:note] = default_sort
     
     # クリックされたソート指定で上書き
     order_sort[order[:key].to_sym] = order[:sort]
