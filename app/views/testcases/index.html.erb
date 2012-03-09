@@ -56,7 +56,7 @@
     <%# 判定 %>
     <tr>
       <td><%= t("testcase.judge") %>：</td>
-      <td><%= select_tag( "set_filter[judge]", options_for_select( JUDGE, selected: @set_filter[:judge] ), { prompt: "-" } ) %></td>
+      <td><%= select_tag( "set_filter[judge]", options_for_select( SEARCH_JUDGE_LIST, selected: @set_filter[:judge] ), { prompt: "-" } ) %></td>
     </tr>
     
     <%# チケット番号 %>

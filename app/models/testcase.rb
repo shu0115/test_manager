@@ -48,8 +48,11 @@ class Testcase < ActiveRecord::Base
 
     set_filter.each_pair{ |key, value|
       unless value.blank?
-        # キーが機能階層であれば
-        if key == "function_level"
+        # フィルタターゲットにより分岐
+        case key
+        # 機能階層
+        when "function_level"
+#        if key == "function_level"
           value.each_pair{ |key2, value2|
             unless value2.blank?
               get_ids = HaveFunction.where( function_id: value2, level: key2 ).uniq.pluck( :testcase_id )
@@ -65,11 +68,20 @@ class Testcase < ActiveRecord::Base
               end
             end
           }
-        elsif key == "ticket_no"
+        # チケット番号
+        when "ticket_no"
+#        elsif key == "ticket_no"
           if value == "有り"
             testcases = testcases.where( "ticket_no IS NOT NULL AND ticket_no != ''" )
           elsif value == "無し"
             testcases = testcases.where( "ticket_no IS NULL OR ticket_no = ''" )
+          end
+        # 判定
+        when "judge"
+          if value == "Pending／NG"
+            testcases = testcases.where( "judge = 'Pending' OR judge = 'NG'" )
+          else
+            testcases = testcases.where( "judge = :value", value: value )
           end
         else
           testcases = testcases.where( "#{key} = :#{key}", { key => value }.symbolize_keys )

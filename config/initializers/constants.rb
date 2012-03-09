@@ -26,6 +26,7 @@ CATEGORY = [ "正常系", "準正常系", "異常系", "バグ", "データ不�
 JUDGE = [ "OK", "Pending", "NG" ]
 TICKET_NO = [ "有り", "無し" ]
 
+SEARCH_JUDGE_LIST = [ "OK", "Pending", "NG", "Pending／NG" ]
 SEARCH_TRAGET_LIST = [ "id", "title", "page", "operation", "result", "ticket_no", "note" ]
 SEARCH_DATE_LIST = [ "operation_at", "check_at" ]
 
